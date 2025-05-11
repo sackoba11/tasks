@@ -19,11 +19,11 @@ class TOutlinedButtonTheme {
         fontWeight: FontWeight.w600,
       ),
       padding: const EdgeInsets.symmetric(
-        vertical: ZMSizes.buttonHeight,
+        vertical: TSizes.buttonHeight,
         horizontal: 20,
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(ZMSizes.buttonRadius),
+        borderRadius: BorderRadius.circular(TSizes.buttonRadius),
       ),
     ),
   );
@@ -39,11 +39,11 @@ class TOutlinedButtonTheme {
         fontWeight: FontWeight.w600,
       ),
       padding: const EdgeInsets.symmetric(
-        vertical: ZMSizes.buttonHeight,
+        vertical: TSizes.buttonHeight,
         horizontal: 20,
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(ZMSizes.buttonRadius),
+        borderRadius: BorderRadius.circular(TSizes.buttonRadius),
       ),
     ),
   );
