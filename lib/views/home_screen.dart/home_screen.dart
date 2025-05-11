@@ -10,6 +10,7 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
 
         title: Text('Tasks'),
+        centerTitle: true,
       ),
       body: Center(
         child: Column(

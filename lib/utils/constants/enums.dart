@@ -6,16 +6,44 @@
 /// Switch of Custom Brand-Text-Size Widget
 enum TextSizes { small, medium, large }
 
-enum OrderStatus { processing, shipped, delivered }
+//Task status Enum
+enum TaskStatus { pending, inProgress, completed, overdue, cancelled, archived }
 
-enum PaymentMethods {
-  paypal,
-  googlePay,
-  applePay,
-  visa,
-  masterCard,
-  creditCard,
-  paystack,
-  razorPay,
-  paytm,
+// Task Tags Enum
+enum TaskTag {
+  work,
+  personal,
+  urgent,
+  lowPriority,
+  finance,
+  shopping,
+  health,
+  learning,
+  travel,
+  family,
+  other,
 }
+
+// Task Status Enum
+// enum TaskStatus {
+//   enAttente,
+//   enCours,
+//   terminee,
+//   enRetard,
+//   annulee,
+//   archivee,
+// }
+
+// Task Tags Enum
+// enum TaskTag {
+//   travail,
+//   personnel,
+//   urgent,
+//   faiblePriorite,
+//   finance,
+//   courses,
+//   sante,
+//   apprentissage,
+//   voyage,
+//   famille,
+// }
