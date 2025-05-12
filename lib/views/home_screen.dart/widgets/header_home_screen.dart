@@ -1,0 +1,67 @@
+import 'package:flutter/material.dart';
+
+import '../../../utils/constants/colors.dart';
+import '../../../utils/constants/image_strings.dart';
+import '../../../utils/constants/sizes.dart';
+import 'custom_card_1.dart';
+import 'custom_card_2.dart';
+
+class HeaderHomeScreen extends StatelessWidget {
+  const HeaderHomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          child: Text(
+            'Gérer vos tâches quotidiennes',
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+        ),
+        SizedBox(height: TSizes.spaceBtwSections),
+        SizedBox(
+          height: 208,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 3,
+                child: CustomCard1(
+                  imagePath: TImages.darkAppLogo,
+                  title: 'En cours',
+                  numberTask: 8,
+                  color: TColors.accent,
+                  onTap: () {},
+                ),
+              ),
+              Expanded(
+                flex: 5,
+                child: Column(
+                  children: [
+                    CustomCard2(
+                      imagePath: TImages.darkAppLogo,
+                      title: 'En attente',
+                      numberTask: 23,
+                      color: TColors.secondary.withOpacity(0.6),
+                      onTap: () {},
+                    ),
+                    const SizedBox(height: TSizes.spaceBtwItems),
+                    CustomCard2(
+                      imagePath: TImages.darkAppLogo,
+                      title: 'Terminées',
+                      numberTask: 47,
+                      color: TColors.success.withOpacity(0.6),
+                      onTap: () {},
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}

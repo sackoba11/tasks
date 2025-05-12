@@ -4,7 +4,7 @@
 -- */
 
 /// Switch of Custom Brand-Text-Size Widget
-enum TextSizes { small, medium, large }
+enum TaskLevel { high, medium, low }
 
 //Task status Enum
 enum TaskStatus { pending, inProgress, completed, overdue, cancelled, archived }
