@@ -31,6 +31,7 @@ class TSizes {
 
   // Default spacing between sections
   static const double defaultSpace = 14.0;
+  static const double defaultSpaceAppbar = 7.0;
   static const double spaceBtwItems = 16.0;
   static const double spaceBtwSections = 32.0;
 

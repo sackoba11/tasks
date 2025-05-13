@@ -19,12 +19,16 @@ class HomeScreen extends StatelessWidget {
         actions: [
           CustomIconButton(icon: Iconsax.notification_copy, onPressed: () {}),
         ],
+        actionsPadding: const EdgeInsets.only(right: TSizes.defaultSpace),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: LayoutBuilder(
           builder: (context, constraints) {
             return SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(
+                horizontal: TSizes.defaultSpace,
+              ),
               physics: const BouncingScrollPhysics(),
               child: SizedBox(
                 height: constraints.maxHeight,
@@ -32,7 +36,7 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     const HeaderHomeScreen(),
-                    SizedBox(height: TSizes.spaceBtwItems),
+                    const SizedBox(height: TSizes.spaceBtwItems),
                     Expanded(child: const BodyHomeScreen()),
                   ],
                 ),
