@@ -3,7 +3,16 @@ import 'package:flutter/material.dart';
 class TColors {
   TColors._(); // Prevent instantiation
 
-  // App theme colors
+  static const Color primaryColor = Color(0xFFfbe3c2);
+  static const Color cardTaskColor = Color(0xFFdbd4fd);
+  static const Color cardTask2Color = Color(0xFFdcfef7);
+  static const Color cardTask3Color = Color(0xFFe5f09d);
+  static const Color darkCardColor = Color(0xFF232323);
+  static const Color backgroundDetailTaskScreenColor = Color(0xFFd9d2fb);
+  static const Color backgroundDarkColor = Color(0xFFdbd4fd);
+  static const Color levelMediumdColor = Color(0xFFb98611);
+  static const Color levelHighdColor = Color(0xFFf6443f);
+  // App theme colors8
   static const Color primary = Color.fromRGBO(229, 245, 203, 1);
   static const Color secondary = Color(0xFFFFE24B);
   static const Color accent = Color(0xFFb0c7ff);
@@ -18,7 +27,7 @@ class TColors {
   // Text colors
   static const Color textPrimary = Color(0xFF333333);
   static const Color textSecondary = Color(0xFF6C757D);
-  static const Color textWhite = Colors.white;  
+  static const Color textWhite = Colors.white;
 
   // Background colors
   static const Color light = Color(0xFFF6F6F6);

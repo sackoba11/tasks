@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../utils/constants/colors.dart';
+
 class CustomCard2 extends StatelessWidget {
   const CustomCard2({
     super.key,
@@ -33,11 +35,18 @@ class CustomCard2 extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: Theme.of(context).textTheme.titleLarge),
+                  Text(
+                    title,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.titleLarge!.copyWith(color: TColors.black),
+                  ),
                   SizedBox(height: 4),
                   Text(
                     '$numberTask Tâches',
-                    style: Theme.of(context).textTheme.labelMedium,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.labelMedium!.copyWith(color: TColors.black),
                   ),
                 ],
               ),

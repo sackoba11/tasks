@@ -27,7 +27,12 @@ class BodyHomeScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               return CustomCardTask(
                 title: 'Aller au cinema',
-                level: TaskLevel.high,
+                level:
+                    index == 2
+                        ? TaskLevel.bas
+                        : index == 4
+                        ? TaskLevel.moyen
+                        : TaskLevel.urgent,
                 percentageToEnd: 82,
                 beginTime: DateTime.now(),
                 endTime: DateTime.now(),

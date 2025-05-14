@@ -1,3 +1,4 @@
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
@@ -49,39 +50,36 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
 
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.miniCenterDocked,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: TColors.accent,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        backgroundColor: TColors.primaryColor,
         onPressed: () {},
-        child: const Icon(Iconsax.add_circle),
+        child: const Icon(Iconsax.add_copy, size: 28, color: TColors.black),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Iconsax.home_2_copy),
-            activeIcon: Icon(Iconsax.home_1),
-            label: '',
-          ),
-
-          BottomNavigationBarItem(
-            icon: Icon(Iconsax.calendar_1_copy),
-            activeIcon: Icon(Iconsax.calendar),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Iconsax.check_copy),
-            activeIcon: Icon(Iconsax.check),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Iconsax.user_copy),
-            activeIcon: Icon(Iconsax.user),
-            label: '',
-          ),
+      bottomNavigationBar: AnimatedBottomNavigationBar(
+        height: 80,
+        icons: [
+          indexPage == 0 ? Iconsax.home_1 : Iconsax.home_2_copy,
+          indexPage == 1 ? Iconsax.calendar : Iconsax.calendar_1_copy,
+          indexPage == 2 ? Iconsax.check : Iconsax.check_copy,
+          indexPage == 3 ? Iconsax.user : Iconsax.user_copy,
         ],
-        currentIndex: indexPage,
-        selectedItemColor: TColors.accent.withOpacity(0.8),
-        unselectedItemColor: Theme.of(context).colorScheme.onBackground,
+        notchMargin: 10,
+        activeIndex: indexPage,
+        gapLocation: GapLocation.center,
+        notchSmoothness: NotchSmoothness.defaultEdge,
+        leftCornerRadius: 32,
+        rightCornerRadius: 32,
+        backgroundColor: Theme.of(context).cardColor,
+        activeColor: TColors.primaryColor,
+        shadow: BoxShadow(
+          offset: Offset(0, 1),
+          blurRadius: 20,
+          spreadRadius: 0.5,
+          color: TColors.black.withOpacity(0.8),
+        ),
         onTap: (index) {
           setState(() {
             indexPage = index;

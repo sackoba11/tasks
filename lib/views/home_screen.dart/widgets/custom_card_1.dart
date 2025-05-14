@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../utils/constants/colors.dart';
+
 class CustomCard1 extends StatelessWidget {
   const CustomCard1({
     super.key,
@@ -32,11 +34,15 @@ class CustomCard1 extends StatelessWidget {
                 child: ListTile(
                   title: Text(
                     title,
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.titleLarge!.copyWith(color: TColors.black),
                   ),
                   subtitle: Text(
                     '$numberTask Tâches',
-                    style: Theme.of(context).textTheme.labelMedium,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.labelMedium!.copyWith(color: TColors.black),
                   ),
                 ),
               ),

@@ -24,6 +24,7 @@ class CustomCardTask extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Theme.of(context).cardColor,
       child: Padding(
         padding: const EdgeInsets.all(TSizes.defaultSpace),
         child: Column(
@@ -37,14 +38,14 @@ class CustomCardTask extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(TSizes.borderRadiusLg),
                     color:
-                        level == TaskLevel.high
-                            ? TColors.error
-                            : level == TaskLevel.medium
-                            ? TColors.warning
+                        level == TaskLevel.urgent
+                            ? TColors.levelHighdColor
+                            : level == TaskLevel.moyen
+                            ? TColors.levelMediumdColor
                             : TColors.secondary.withOpacity(0.7),
                   ),
                   child: Text(
-                    level.name.toUpperCase(),
+                    level.name,
                     style: Theme.of(context).textTheme.labelSmall,
                   ),
                 ),
