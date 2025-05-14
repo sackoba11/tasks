@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
-import '../../utils/constants/colors.dart';
 import '../../utils/constants/sizes.dart';
-import '../../widgets/bottom_navigation_bar.dart';
 import 'widgets/body_home_screen.dart';
 import 'widgets/custom_icon_button.dart';
 import 'widgets/header_home_screen.dart';
