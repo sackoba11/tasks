@@ -50,16 +50,6 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
       ),
-
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterDocked,
-      floatingActionButton: FloatingActionButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-        backgroundColor: TColors.primaryColor,
-        onPressed: () {},
-        child: const Icon(Iconsax.add_copy, size: 28, color: TColors.black),
-      ),
-      bottomNavigationBar: CustomBottomNavigationBar(),
     );
   }
 }
