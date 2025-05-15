@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../utils/constants/enums.dart';
-import '../../../utils/constants/sizes.dart';
+import '../../../utils/constants/routes.dart';
 import 'custom_card_task.dart';
 
 class BodyHomeScreen extends StatelessWidget {
@@ -15,10 +16,17 @@ class BodyHomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('En Cours', style: Theme.of(context).textTheme.headlineSmall),
-            Text('Voir plus', style: Theme.of(context).textTheme.bodyLarge),
+            TextButton(
+              child: Text(
+                'Voir plus',
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              onPressed: () {
+                context.go(Routes.taskInProgress);
+              },
+            ),
           ],
         ),
-        SizedBox(height: TSizes.spaceBtwItems),
         Expanded(
           child: ListView.builder(
             shrinkWrap: true,

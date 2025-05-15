@@ -8,7 +8,7 @@ import 'views/home_screen.dart/home_screen.dart';
 import 'views/profile/profile_screen.dart';
 import 'views/task_completed/task_completed_screen.dart';
 import 'views/task_in_progress/task_in_progress_screen.dart';
-import 'widgets/base_screen.dart';
+import 'views/base_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _sectionNavigatorKey = GlobalKey<NavigatorState>();

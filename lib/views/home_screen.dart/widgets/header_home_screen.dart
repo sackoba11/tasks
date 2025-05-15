@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/image_strings.dart';
+import '../../../utils/constants/routes.dart';
 import '../../../utils/constants/sizes.dart';
 import 'custom_card_1.dart';
 import 'custom_card_2.dart';
@@ -33,7 +35,9 @@ class HeaderHomeScreen extends StatelessWidget {
                   title: 'En cours',
                   numberTask: 8,
                   color: TColors.cardTaskColor,
-                  onTap: () {},
+                  onTap: () {
+                    context.go(Routes.taskInProgress);
+                  },
                 ),
               ),
               Expanded(
@@ -53,7 +57,9 @@ class HeaderHomeScreen extends StatelessWidget {
                       title: 'Terminées',
                       numberTask: 47,
                       color: TColors.cardTask3Color,
-                      onTap: () {},
+                      onTap: () {
+                        context.go(Routes.taskCompleted);
+                      },
                     ),
                   ],
                 ),

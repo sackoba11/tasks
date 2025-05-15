@@ -22,7 +22,7 @@ class CustomCard1 extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Card(
-        margin: EdgeInsets.only(right: 8),
+        margin: EdgeInsets.only(right: 8),  
         color: color,
         child: SizedBox(
           child: Column(

@@ -22,10 +22,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        title: TitleAppBar(userName: 'Sacko'),
+        title: Padding(
+          padding: const EdgeInsets.only(left: TSizes.spaceAppBar),
+          child: TitleAppBar(userName: 'Sacko'),
+        ),
         actions: [
           CustomIconButton(icon: Iconsax.notification_copy, onPressed: () {}),
         ],
+        actionsPadding: const EdgeInsets.only(right: TSizes.spaceAppBar),
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {

@@ -9,7 +9,6 @@ class Task {
   final DateTime createdAt;
   DateTime updatedAt;
   final List<TaskTag> tags;
-  final String? assignedTo;
   final List<Task> subtasks;
   final List<String> attachments;
 
@@ -22,7 +21,6 @@ class Task {
     required this.createdAt,
     DateTime? updatedAt,
     List<TaskTag>? tags,
-    this.assignedTo,
     List<Task>? subtasks,
     List<String>? attachments,
   }) : updatedAt = updatedAt ?? DateTime.now(),
@@ -41,7 +39,6 @@ class Task {
       'createdAt': createdAt.toIso8601String(),
       'updatedAt': updatedAt.toIso8601String(),
       'tags': tags,
-      'assignedTo': assignedTo,
       'subtasks': subtasks.map((task) => task.toMap()).toList(),
       'attachments': attachments,
     };
@@ -62,7 +59,6 @@ class Task {
               ?.map((tag) => TaskTag.values.firstWhere((e) => e.name == tag))
               .toList() ??
           [],
-      assignedTo: map['assignedTo'],
       subtasks:
           (map['subtasks'] as List?)
               ?.map((subtask) => Task.fromMap(subtask))

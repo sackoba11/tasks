@@ -2,9 +2,10 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../utils/constants/colors.dart';
-import '../utils/constants/routes.dart';
+import 'add_task/add_task_screen.dart';
 
 class ScaffoldWithNavbar extends StatelessWidget {
   const ScaffoldWithNavbar(this.navigationShell, {super.key});
@@ -31,7 +32,10 @@ class ScaffoldWithNavbar extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         backgroundColor: TColors.primaryColor,
         onPressed: () {
-          context.go(Routes.addTask);
+          showCupertinoModalBottomSheet(
+            context: context,
+            builder: (context) => const AddTaskScreen(),
+          );
         },
         child: const Icon(Iconsax.add_copy, size: 28, color: TColors.black),
       ),
