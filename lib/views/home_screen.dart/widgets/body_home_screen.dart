@@ -37,10 +37,10 @@ class BodyHomeScreen extends StatelessWidget {
                 title: 'Aller au cinema',
                 level:
                     index == 2
-                        ? TaskLevel.bas
+                        ? TaskLevel.basse
                         : index == 4
-                        ? TaskLevel.moyen
-                        : TaskLevel.urgent,
+                        ? TaskLevel.moyenne
+                        : TaskLevel.urgente,
                 percentageToEnd: 82,
                 beginTime: DateTime.now(),
                 endTime: DateTime.now(),

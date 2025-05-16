@@ -33,6 +33,8 @@ class ScaffoldWithNavbar extends StatelessWidget {
         backgroundColor: TColors.primaryColor,
         onPressed: () {
           showCupertinoModalBottomSheet(
+            isDismissible: false,
+            enableDrag: false,
             context: context,
             builder: (context) => const AddTaskScreen(),
           );

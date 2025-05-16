@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 class TColors {
   TColors._(); // Prevent instantiation
 
-  static const Color primaryColor = Color(0xFFfbe3c2);
+  static const Color primaryColor = Color(0xFFfee4c1);
   static const Color cardTaskColor = Color(0xFFdbd4fd);
-  static const Color cardTask2Color = Color(0xFFdcfef7);
-  static const Color cardTask3Color = Color(0xFFe5f09d);
+  static const Color cardTask2Color = Color(0xFFdefff9);
+  static const Color cardTask3Color = Color(0xFFe6f19d);
   static const Color darkCardColor = Color(0xFF232323);
   static const Color backgroundDetailTaskScreenColor = Color(0xFFd9d2fb);
   static const Color backgroundDarkColor = Color(0xFFdbd4fd);

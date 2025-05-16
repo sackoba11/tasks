@@ -19,33 +19,50 @@ class CustomTextFormField extends StatelessWidget {
   final TextStyle? style;
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return  TextFormField(
       maxLines: maxLines,
       controller: controller,
       keyboardType: keyboardType,
       style: style ?? Theme.of(context).textTheme.headlineSmall,
+      readOnly: keyboardType == TextInputType.datetime,
+      onTap: () {
+        if (keyboardType == TextInputType.datetime) {
+          FocusScope.of(context).unfocus();
+        }
+      },
       decoration: InputDecoration(
         labelText: labelText,
         hintText: hintText,
         suffixIcon:
             keyboardType == TextInputType.datetime
-                ? IconButton(
-                  icon: Icon(Iconsax.calendar_2_copy),
-                  onPressed: () async {
-                    final DateTime? pickedDate = await showDatePicker(
-                      context: context,
-                      firstDate: DateTime(2017, 9, 7, 17, 30),
-                      lastDate: DateTime(2030),
-                      initialDate: DateTime.now(),
-                    );
-                    if (pickedDate != null) {
-                      controller.text =
-                          '${pickedDate.day}/${pickedDate.month}/${pickedDate.year}';
-                    }
-                  },
-                )
+                ? DateIconButton(controller: controller)
                 : null,
       ),
+    );
+  }
+}
+
+class DateIconButton extends StatelessWidget {
+  const DateIconButton({super.key, required this.controller});
+
+  final TextEditingController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(Iconsax.calendar_2_copy),
+      onPressed: () async {
+        final DateTime? pickedDate = await showDatePicker(
+          context: context,
+          firstDate: DateTime(2017, 9, 7, 17, 30),
+          lastDate: DateTime(2030),
+          initialDate: DateTime.now(),
+        );
+        if (pickedDate != null) {
+          controller.text =
+              '${pickedDate.day}/${pickedDate.month}/${pickedDate.year}';
+        }
+      },
     );
   }
 }

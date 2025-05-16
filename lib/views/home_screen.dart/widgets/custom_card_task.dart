@@ -38,9 +38,9 @@ class CustomCardTask extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(TSizes.borderRadiusLg),
                     color:
-                        level == TaskLevel.urgent
+                        level == TaskLevel.urgente
                             ? TColors.levelHighdColor
-                            : level == TaskLevel.moyen
+                            : level == TaskLevel.moyenne
                             ? TColors.levelMediumdColor
                             : TColors.secondary.withOpacity(0.7),
                   ),
