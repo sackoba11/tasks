@@ -27,6 +27,7 @@ dependencies:
   animated_bottom_navigation_bar: ^1.4.0
   modal_bottom_sheet: ^3.0.0
   universal_stepper: ^1.0.0+1
+  flexible_dropdown: ^1.0.6
 
     
   
@@ -46,6 +47,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/logos/
+    - assets/images/content/
 
   # An image file can appear as "assets/images/imagename" in
   fonts:

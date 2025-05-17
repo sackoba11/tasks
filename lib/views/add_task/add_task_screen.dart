@@ -57,6 +57,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   hintText: 'Sélectionnez la date de début 👉',
                   controller: startDateController,
                   keyboardType: TextInputType.datetime,
+                  suffixIcon: DateIconButton(controller: startDateController),
                 ),
                 const SizedBox(height: TSizes.spaceBtwItems),
                 CustomTextFormField(
@@ -64,6 +65,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   hintText: 'Sélectionnez la date de fin 👉',
                   controller: endDateController,
                   keyboardType: TextInputType.datetime,
+                  suffixIcon: DateIconButton(controller: endDateController),
                 ),
                 const SizedBox(height: TSizes.spaceBtwItems),
                 DropdownButtonFormField(

@@ -20,7 +20,9 @@ class ScaffoldWithNavbar extends StatelessWidget {
       navigationShell.currentIndex == 1
           ? Iconsax.calendar
           : Iconsax.calendar_1_copy,
-      navigationShell.currentIndex == 2 ? Iconsax.check : Iconsax.check_copy,
+      navigationShell.currentIndex == 2
+          ? Icons.done_all_sharp
+          : Icons.done_all_sharp,
       navigationShell.currentIndex == 3 ? Iconsax.user : Iconsax.user_copy,
     ];
 

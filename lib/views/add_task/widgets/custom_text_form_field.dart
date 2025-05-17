@@ -10,6 +10,9 @@ class CustomTextFormField extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.maxLines = 1,
     this.style,
+    this.enable = true,
+    this.suffixIcon,
+    this.prefixIcon,
   });
   final String labelText;
   final String hintText;
@@ -17,14 +20,18 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputType keyboardType;
   final int maxLines;
   final TextStyle? style;
+  final Widget? suffixIcon;
+  final Widget? prefixIcon;
+  final bool enable;
   @override
   Widget build(BuildContext context) {
-    return  TextFormField(
+    return TextFormField(
       maxLines: maxLines,
       controller: controller,
       keyboardType: keyboardType,
       style: style ?? Theme.of(context).textTheme.headlineSmall,
       readOnly: keyboardType == TextInputType.datetime,
+      enabled: enable,
       onTap: () {
         if (keyboardType == TextInputType.datetime) {
           FocusScope.of(context).unfocus();
@@ -33,10 +40,8 @@ class CustomTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: labelText,
         hintText: hintText,
-        suffixIcon:
-            keyboardType == TextInputType.datetime
-                ? DateIconButton(controller: controller)
-                : null,
+        suffixIcon: suffixIcon ?? null,
+        prefixIcon: prefixIcon ?? null,
       ),
     );
   }

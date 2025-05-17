@@ -24,5 +24,5 @@ class TImages {
   //     "assets/images/animations/sammy-line-travel-backpack-with-passport-and-air-ticket.gif";
 
   //Profile
-  // static const String user = "assets/images/content/user.png";
+  static const String user = "assets/images/content/user.png";
 }
