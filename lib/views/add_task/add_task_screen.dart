@@ -1,7 +1,4 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:tasks/utils/constants/enums.dart';
 import 'package:universal_stepper/universal_stepper.dart';
 
@@ -24,12 +21,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     final TextEditingController startDateController = TextEditingController();
     final TextEditingController endDateController = TextEditingController();
     final TextEditingController priorityController = TextEditingController();
-    final List<Step> steps = [
-      Step(
-        title: const Text('Step 1'),
-        content: const Text('Content of Step 1'),
-      ),
-    ];
+    bool isAddStep = false;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Ajouter une tâche'),
@@ -117,18 +109,33 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 horizontal: TSizes.defaultSpace,
               ),
               height: 60,
-              child: ElevatedButton(
+              child: CustomElevatedButton(
+                title: 'Ajouter la tâche',
                 onPressed: () {},
-                child: Text(
-                  'Ajouter la tâche',
-                  style: Theme.of(
-                    context,
-                  ).textTheme.titleLarge!.copyWith(color: TColors.black),
-                ),
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class CustomElevatedButton extends StatelessWidget {
+  const CustomElevatedButton({super.key, required this.title, this.onPressed});
+
+  final String title;
+  final VoidCallback? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      child: Text(
+        title,
+        style: Theme.of(
+          context,
+        ).textTheme.titleLarge!.copyWith(color: TColors.black),
       ),
     );
   }
@@ -142,31 +149,30 @@ class CustomStepper extends StatefulWidget {
 }
 
 class _CustomStepperState extends State<CustomStepper> {
-  int currentStep = 2;
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
   List<Step> stepperData = [
-    Step(
-      title: Text("Order Placed"),
-      subtitle: Text("Your order has been placed"),
-      content: Text("Your order has been placed"),
-    ),
-    const Step(
-      title: Text("Preparing"),
-      subtitle: Text("Your order is being prepared"),
-      content: Text("Your order is being prepared"),
-    ),
-    const Step(
-      title: Text("On the way"),
-      subtitle: Text('data'),
-      content: Text('data'),
-    ),
-    const Step(
-      title: Text("Delivered"),
-      subtitle: Text("Your order was delivered successfully"),
-      content: Text("Your order was delivered successfully"),
-    ),
+    // Step(
+    //   title: Text("Order Placed"),
+    //   subtitle: Text("Your order has been placed"),
+    //   content: Text("Your order has been placed"),
+    // ),
+    // const Step(
+    //   title: Text("Preparing"),
+    //   subtitle: Text("Your order is being prepared"),
+    //   content: Text("Your order is being prepared"),
+    // ),
+    // const Step(
+    //   title: Text("On the way"),
+    //   subtitle: Text('data'),
+    //   content: Text('data'),
+    // ),
+    // const Step(
+    //   title: Text("Delivered"),
+    //   subtitle: Text("Your order was delivered successfully"),
+    //   content: Text("Your order was delivered successfully"),
+    // ),
   ];
 
   @override
@@ -180,44 +186,89 @@ class _CustomStepperState extends State<CustomStepper> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ElevatedButton(
-            onPressed: () {
-              setState(() {
-                stepperData.add(
-                  Step(
-                    title: Text("Order Placed"),
-                    subtitle: Text("Your order has been placed"),
-                    content: Text("Your order has been placed"),
+          const SizedBox(height: TSizes.spaceBtwItems),
+          Text('Ajout des étapes'),
+          const SizedBox(height: TSizes.spaceBtwItems),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              CustomTextFormField(
+                labelText: 'Titre',
+                hintText: 'Donner le titre',
+                controller: titleController,
+              ),
+              const SizedBox(height: TSizes.spaceBtwItems),
+              CustomTextFormField(
+                labelText: 'Details',
+                hintText: 'Donner les details',
+                controller: descriptionController,
+              ),
+              const SizedBox(height: TSizes.spaceBtwItems),
+              ElevatedButton(
+                onPressed: () {
+                  if (titleController.text.isNotEmpty &&
+                      descriptionController.text.isNotEmpty) {
+                    setState(() {
+                      stepperData.add(
+                        Step(
+                          title: Text(
+                            titleController.text,
+                            style: Theme.of(context).textTheme.labelLarge,
+                          ),
+                          content: Text(
+                            descriptionController.text,
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ),
+                      );
+                      titleController.text = '';
+                      descriptionController.text = '';
+                    });
+                  }
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    'Ajouter',
+                    style: Theme.of(
+                      context,
+                    ).textTheme.titleLarge!.copyWith(color: TColors.black),
                   ),
-                );
-              });
-            },
-            child: const Text('Ajouter une étape'),
-          ),
-          const SizedBox(width: 20),
-          CustomTextFormField(
-            labelText: 'Titre',
-            hintText: 'Donner le titre',
-            controller: titleController,
+                ),
+              ),
+            ],
           ),
 
-          const SizedBox(height: 20),
           UniversalStepper(
             stepperDirection: Axis.vertical,
             elementBuilder: (context, index) {
               return Expanded(
-                child: Container(
-                  padding: const EdgeInsets.only(left: 10, bottom: 15),
-
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      stepperData[index].title,
-
-                      stepperData[index].subtitle!,
-                    ],
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.only(
+                        left: 10,
+                        bottom: 10,
+                        top: 10,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          stepperData[index].title,
+                          stepperData[index].content,
+                        ],
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          stepperData.removeAt(index);
+                        });
+                      },
+                      icon: Icon(Icons.close),
+                    ),
+                  ],
                 ),
               );
             },
@@ -229,8 +280,11 @@ class _CustomStepperState extends State<CustomStepper> {
                   color: Colors.green,
                   borderRadius: BorderRadius.all(Radius.circular(30)),
                 ),
-                child: const FittedBox(
-                  child: Icon(Icons.check_circle_outline, color: Colors.white),
+                child: FittedBox(
+                  child: Icon(
+                    Icons.check_circle_outline_sharp,
+                    color: TColors.white,
+                  ),
                 ),
               );
             },
