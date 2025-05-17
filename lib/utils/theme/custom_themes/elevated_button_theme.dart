@@ -27,6 +27,7 @@ class TElevatedButtonTheme {
   // Dark theme ElevatedButtonTheme
   static final darkElevatedButtonTheme = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
+      
       elevation: 0,
       backgroundColor: TColors.primaryColor.withOpacity(0.6),
       foregroundColor: Colors.white,
