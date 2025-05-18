@@ -1,5 +1,28 @@
 /// This class contains all the App Text in String formats.
-class ZMTexts {
+class TTexts {
+  static const List<String> days = [
+    'Lundi',
+    'Mardi',
+    'Mercredi',
+    'Jeudi',
+    'Vendredi',
+    'Samedi',
+    'Dimanche',
+  ];
+  static const List<String> month = [
+    'Janvier',
+    'Février',
+    'Mars',
+    'Avril',
+    'Mai',
+    'Juin',
+    'Juillet',
+    'Août',
+    'Septembre',
+    'Octobre',
+    'Novembre',
+    'Décembre',
+  ];
   // -- GLOBAL Texts
   static const String and = "and";
   static const String skip = "Skip";

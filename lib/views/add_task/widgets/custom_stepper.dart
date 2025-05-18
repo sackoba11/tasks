@@ -34,8 +34,7 @@ class _CustomStepperState extends State<CustomStepper> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: TSizes.spaceBtwItems),
-          Text('Ajout des étapes'),
-          const SizedBox(height: TSizes.spaceBtwItems),
+          Text('Ajout des étapes (Facultatif)'),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
@@ -153,6 +152,9 @@ class _CustomStepperState extends State<CustomStepper> {
             },
             elementCount: stepperData.length,
           ),
+          const SizedBox(height: TSizes.spaceBtwSections),
+          const SizedBox(height: TSizes.spaceBtwSections),
+          const SizedBox(height: TSizes.spaceBtwSections),
         ],
       ),
     );

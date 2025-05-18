@@ -73,3 +73,4 @@ class Task {
     return 'Task(id: $id, title: $title, status: $status, dueDate: $dueDate, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
+

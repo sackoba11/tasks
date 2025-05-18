@@ -1,97 +1,91 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../models/task.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/enums.dart';
+import '../../../utils/constants/routes.dart';
 import '../../../utils/constants/sizes.dart';
 
 class CustomCardTask extends StatelessWidget {
-  const CustomCardTask({
-    super.key,
-    required this.level,
-    required this.title,
-    required this.beginTime,
-    required this.endTime,
-    required this.endDate,
-    required this.percentageToEnd,
-  });
+  const CustomCardTask({super.key, required this.task});
+  final Task task;
 
-  final TaskLevel level;
-  final String title;
-  final DateTime beginTime;
-  final DateTime endTime;
-  final DateTime endDate;
-  final double percentageToEnd;
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Theme.of(context).cardColor,
-      child: Padding(
-        padding: const EdgeInsets.all(TSizes.defaultSpace),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  padding: EdgeInsets.all(TSizes.sm),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(TSizes.borderRadiusLg),
-                    color:
-                        level == TaskLevel.urgente
-                            ? TColors.levelHighdColor
-                            : level == TaskLevel.moyenne
-                            ? TColors.levelMediumdColor
-                            : TColors.secondary.withOpacity(0.7),
-                  ),
-                  child: Text(
-                    level.name,
-                    style: Theme.of(context).textTheme.labelSmall,
-                  ),
-                ),
-                Text(
-                  '$percentageToEnd%',
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Text(
-                title,
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.access_time_outlined,
-                  size: TSizes.iconMd,
-                  color: TColors.darkGrey,
-                ),
-                const SizedBox(width: 4),
-                Text(
-                  '${beginTime.hour}:${beginTime.minute} - ${endTime.copyWith(hour: 20).hour}:${endTime.minute} ${endTime.timeZoneName}',
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
+    return InkWell(
+      onTap: () {
+        context.go(Routes.taskDetails, extra: task);
+      },
+      child: Card(
+        color: Theme.of(context).cardColor,
+        child: Padding(
+          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Date limite : ',
-                    style: Theme.of(context).textTheme.bodySmall,
+                  Container(
+                    padding: EdgeInsets.all(TSizes.sm),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        TSizes.borderRadiusLg,
+                      ),
+                      color:
+                          task.tags.first == TaskTag.urgent
+                              ? TColors.levelHighdColor
+                              : task.tags.first == TaskTag.family
+                              ? TColors.levelMediumdColor
+                              : TColors.secondary.withOpacity(0.7),
+                    ),
+                    child: Text(
+                      task.tags.first.name,
+                      style: Theme.of(context).textTheme.labelSmall,
+                    ),
                   ),
+                  Text('82%', style: Theme.of(context).textTheme.labelSmall),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Text(
+                  task.title,
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+              ),
+              Row(
+                children: [
+                  Icon(
+                    Icons.access_time_outlined,
+                    size: TSizes.iconMd,
+                    color: TColors.darkGrey,
+                  ),
+                  const SizedBox(width: 4),
                   Text(
-                    '${endDate.day}-${endDate.month}-${endDate.year}',
-                    style: Theme.of(context).textTheme.bodyLarge,
+                    '${task.createdAt.hour}:${task.createdAt.minute} - ${task.dueDate.copyWith(hour: 20).hour}:${task.dueDate.minute} ${task.dueDate.timeZoneName}',
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ],
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Text(
+                      'Date limite : ',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                    Text(
+                      '${task.dueDate.day}-${task.dueDate.month}-${task.dueDate.year}',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'models/task.dart';
 import 'utils/constants/routes.dart';
 import 'views/add_task/add_task_screen.dart';
 import 'views/details_task/details_task.dart';
@@ -28,18 +29,8 @@ class Routers {
             navigatorKey: _sectionNavigatorKey,
             routes: [
               GoRoute(
-                // Optional, add name to your routes. Allows you navigate by name instead of path
                 path: Routes.home,
                 builder: (context, state) => HomeScreen(),
-                routes: <RouteBase>[
-                  // Add child routes
-                  GoRoute(
-                    path:
-                        Routes
-                            .taskDetails, // This will be appended to the parent route's path
-                    builder: (context, state) => DetailsTask(),
-                  ),
-                ],
               ),
             ],
           ),
@@ -77,6 +68,11 @@ class Routers {
             ],
           ),
         ],
+      ),
+      GoRoute(
+        path: Routes.taskDetails,
+
+        builder: (context, state) => DetailsTask(task: state.extra as Task),
       ),
     ],
   );

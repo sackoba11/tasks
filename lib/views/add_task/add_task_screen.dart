@@ -70,7 +70,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 const SizedBox(height: TSizes.spaceBtwItems),
                 DropdownButtonFormField(
                   items:
-                      TaskLevel.values.map((e) {
+                      TaskTag.values.map((e) {
                         String name =
                             e.name[0].toUpperCase() +
                             e.name.substring(1).toLowerCase();
@@ -79,7 +79,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                           child: Text(name),
                         );
                       }).toList(),
-                  value: TaskLevel.values[0].name,
+                  value: TaskTag.values[0].name,
                   onChanged: (value) {
                     priorityController.text = value.toString();
                     print(priorityController.text);
@@ -95,6 +95,21 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   style: Theme.of(context).textTheme.bodyMedium,
                   keyboardType: TextInputType.multiline,
                 ),
+
+                // Positioned(
+                //   bottom: TSizes.spaceBtwSections - 4,
+                //   left: TSizes.defaultSpace,
+                //   right: TSizes.defaultSpace,
+                //   child: Column(
+                //     crossAxisAlignment: CrossAxisAlignment.center,
+                //     mainAxisAlignment: MainAxisAlignment.start,
+                //     children: [
+                //       const SafeArea(child: SizedBox(height: 15)),
+                //       _buildFlexibleDropdown(),
+                //       const SafeArea(child: SizedBox(height: 15)),
+                //     ],
+                //   ),
+                // ),
                 CustomStepper(),
                 const SizedBox(height: TSizes.spaceBtwSections),
                 const SizedBox(height: TSizes.spaceBtwSections),
@@ -102,6 +117,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               ],
             ),
           ),
+
           Positioned(
             bottom: TSizes.spaceBtwSections - 4,
             left: TSizes.defaultSpace,
@@ -117,4 +133,36 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
       ),
     );
   }
+
+  // Widget _buildTextBtn(String title) {
+  //   return Container(
+  //     decoration: BoxDecoration(
+  //       borderRadius: BorderRadius.circular(6),
+  //       color: Colors.blueAccent.withOpacity(.2),
+  //     ),
+  //     child: Padding(
+  //       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+  //       child: Text(
+  //         title,
+  //         style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  // Widget _buildFlexibleDropdown() {
+  //   return FlexibleDropdown(
+  //     overlayChild: Padding(
+  //       padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
+  //       child: CustomStepper(),
+  //     ),
+  //     barrierColor: Colors.transparent,
+  //     barrierShape: BarrierShape.headerTrans,
+  //     textDirection: TextDirection.ltr,
+  //     // duration: const Duration(milliseconds: 400),
+  //     animationType: AnimationType.size,
+  //     animationAlignment: Alignment.center,
+  //     child: _buildTextBtn('Flexible Dropdown'),
+  //   );
+  // }
 }
