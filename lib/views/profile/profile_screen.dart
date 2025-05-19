@@ -10,7 +10,6 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController controller = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         title: Padding(
@@ -56,7 +55,6 @@ class ProfileScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.titleMedium,
                     hintText: '',
                     enable: false,
-                    controller: controller,
                     prefixIcon: Icon(Icons.all_inbox_sharp),
                     suffixIcon: Padding(
                       padding: EdgeInsets.only(top: TSizes.defaultSpace - 8),
@@ -78,7 +76,6 @@ class ProfileScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.titleMedium,
                     hintText: '',
                     enable: false,
-                    controller: controller,
                     prefixIcon: Icon(Iconsax.calendar_1_copy),
                     suffixIcon: Padding(
                       padding: EdgeInsets.only(top: TSizes.defaultSpace - 8),
@@ -100,7 +97,6 @@ class ProfileScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.titleMedium,
                     hintText: '',
                     enable: false,
-                    controller: controller,
                     prefixIcon: Icon(Icons.pending_outlined),
                     suffixIcon: Padding(
                       padding: EdgeInsets.only(top: TSizes.defaultSpace - 8),
@@ -122,7 +118,6 @@ class ProfileScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.titleMedium,
                     hintText: '',
                     enable: false,
-                    controller: controller,
                     prefixIcon: Icon(Icons.done_all_sharp),
                     suffixIcon: Padding(
                       padding: EdgeInsets.only(top: TSizes.defaultSpace - 8),

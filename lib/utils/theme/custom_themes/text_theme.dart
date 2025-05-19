@@ -4,7 +4,7 @@ class TTextTheme {
   TTextTheme._();
 
   // Light theme text styles
-  static TextTheme ligthTextTheme = TextTheme(
+  static TextTheme  ligthTextTheme = TextTheme(
     headlineLarge: TextStyle().copyWith(
       fontSize: 32.0,
       fontWeight: FontWeight.bold,

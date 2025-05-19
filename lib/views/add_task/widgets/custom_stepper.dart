@@ -82,6 +82,7 @@ class _CustomStepperState extends State<CustomStepper> {
             ],
           ),
           UniversalStepper(
+            elementCount: stepperData.length,
             stepperDirection: Axis.vertical,
             elementBuilder: (context, index) {
               return Expanded(
@@ -150,7 +151,6 @@ class _CustomStepperState extends State<CustomStepper> {
                 width: 4,
               );
             },
-            elementCount: stepperData.length,
           ),
           const SizedBox(height: TSizes.spaceBtwSections),
           const SizedBox(height: TSizes.spaceBtwSections),
