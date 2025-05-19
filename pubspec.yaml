@@ -27,7 +27,7 @@ dependencies:
   animated_bottom_navigation_bar: ^1.4.0
   modal_bottom_sheet: ^3.0.0
   universal_stepper: ^1.0.0+1
-  flexible_dropdown: ^1.0.6
+  flex_color_picker: ^3.7.1
 
     
   
