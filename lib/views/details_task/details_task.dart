@@ -8,7 +8,7 @@ import '../../models/task.dart';
 import '../../utils/constants/colors.dart';
 import '../../utils/constants/routes.dart';
 import '../../utils/constants/sizes.dart';
-import '../add_task/widgets/custom_text_form_field.dart';
+import '../../widgets/custom_text_form_field.dart';
 import 'widgets/custom_row_item.dart';
 
 class DetailsTask extends StatelessWidget {
@@ -155,14 +155,6 @@ class DetailsTask extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                // IconButton(
-                                //   onPressed: () {
-                                //     setState(() {
-                                //       stepperData.removeAt(index);
-                                //     });
-                                //   },
-                                //   icon: Icon(Iconsax.close_circle_copy, size: 32),
-                                // ),
                               ],
                             ),
                           );

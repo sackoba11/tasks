@@ -5,7 +5,7 @@ import 'package:tasks/utils/constants/enums.dart';
 import '../../utils/constants/sizes.dart';
 import '../../widgets/custom_elevated_button.dart';
 import 'widgets/custom_stepper.dart';
-import 'widgets/custom_text_form_field.dart';
+import '../../widgets/custom_text_form_field.dart';
 
 class AddTaskScreen extends StatefulWidget {
   const AddTaskScreen({super.key});
@@ -105,7 +105,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 //     mainAxisAlignment: MainAxisAlignment.start,
                 //     children: [
                 //       const SafeArea(child: SizedBox(height: 15)),
-                //       _buildFlexibleDropdown(),
                 //       const SafeArea(child: SizedBox(height: 15)),
                 //     ],
                 //   ),
@@ -133,36 +132,4 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
       ),
     );
   }
-
-  // Widget _buildTextBtn(String title) {
-  //   return Container(
-  //     decoration: BoxDecoration(
-  //       borderRadius: BorderRadius.circular(6),
-  //       color: Colors.blueAccent.withOpacity(.2),
-  //     ),
-  //     child: Padding(
-  //       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-  //       child: Text(
-  //         title,
-  //         style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // Widget _buildFlexibleDropdown() {
-  //   return FlexibleDropdown(
-  //     overlayChild: Padding(
-  //       padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
-  //       child: CustomStepper(),
-  //     ),
-  //     barrierColor: Colors.transparent,
-  //     barrierShape: BarrierShape.headerTrans,
-  //     textDirection: TextDirection.ltr,
-  //     // duration: const Duration(milliseconds: 400),
-  //     animationType: AnimationType.size,
-  //     animationAlignment: Alignment.center,
-  //     child: _buildTextBtn('Flexible Dropdown'),
-  //   );
-  // }
 }

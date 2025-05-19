@@ -5,7 +5,7 @@ import 'package:universal_stepper/universal_stepper.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../widgets/custom_elevated_button.dart';
-import 'custom_text_form_field.dart';
+import '../../../widgets/custom_text_form_field.dart';
 
 class CustomStepper extends StatefulWidget {
   const CustomStepper({super.key});
