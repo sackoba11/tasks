@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import '../utils/constants/enums.dart';
 import 'sub_task.dart';
 
@@ -9,21 +11,22 @@ class Task {
   final DateTime dueDate;
   final DateTime createdAt;
   DateTime updatedAt;
-  final List<TaskTag> tags;
+  final String tag;
   final List<SubTask> subtasks;
+  final Color color;
 
   Task({
     required this.id,
     required this.title,
-    this.description = '',
+    required this.description,
     this.status = TaskStatus.pending,
     required this.dueDate,
     required this.createdAt,
+    required this.color,
     DateTime? updatedAt,
-    List<TaskTag>? tags,
+    required this.tag,
     List<SubTask>? subtasks,
   }) : updatedAt = updatedAt ?? DateTime.now(),
-       tags = tags ?? [],
        subtasks = subtasks ?? [];
 
   // Convert Task to Firestore Map

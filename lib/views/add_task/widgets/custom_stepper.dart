@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:universal_stepper/universal_stepper.dart';
 
+import '../../../models/sub_task.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../widgets/custom_elevated_button.dart';
 import '../../../widgets/custom_text_form_field.dart';
 
 class CustomStepper extends StatefulWidget {
-  const CustomStepper({super.key});
-
+  const CustomStepper({super.key, required this.subTask});
+  final List<SubTask> subTask;
   @override
   State<CustomStepper> createState() => _CustomStepperState();
 }
@@ -28,6 +29,7 @@ class _CustomStepperState extends State<CustomStepper> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context);
+    int index = 0;
 
     return SingleChildScrollView(
       child: Column(
@@ -55,6 +57,13 @@ class _CustomStepperState extends State<CustomStepper> {
                   if (titleController.text.isNotEmpty &&
                       descriptionController.text.isNotEmpty) {
                     setState(() {
+                      widget.subTask.add(
+                        SubTask(
+                          id: '$index',
+                          title: titleController.text,
+                          description: descriptionController.text,
+                        ),
+                      );
                       stepperData.add(
                         Step(
                           title: Text(
@@ -72,6 +81,7 @@ class _CustomStepperState extends State<CustomStepper> {
                           ),
                         ),
                       );
+                      ++index;
                       titleController.text = '';
                       descriptionController.text = '';
                     });
@@ -98,8 +108,19 @@ class _CustomStepperState extends State<CustomStepper> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          stepperData[index].title,
-                          stepperData[index].content,
+                          Text(
+                            widget.subTask[index].title,
+                            style: Theme.of(context).textTheme.labelLarge,
+                            overflow: TextOverflow.clip,
+                          ),
+                          SizedBox(
+                            width: size.width * .64,
+                            child: Text(
+                              widget.subTask[index].description,
+                              style: Theme.of(context).textTheme.bodySmall,
+                              overflow: TextOverflow.clip,
+                            ),
+                          ),
                         ],
                       ),
                     ),

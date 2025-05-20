@@ -78,7 +78,8 @@ class DetailsTask extends StatelessWidget {
                     ),
                     CustomRowItem(
                       title: 'Étiquette :',
-                      value: '${task.tags.map((tag) => tag.name).toList()}',
+                      color: task.color,
+                      value: task.tag,
                     ),
                     SizedBox(height: size.height * 0.02),
                   ],

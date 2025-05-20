@@ -33,7 +33,9 @@ class BodyHomeScreen extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             itemCount: FakeData.tasks.length,
             itemBuilder: (context, index) {
-              return CustomCardTask(task: FakeData.tasks[index]);
+              return CustomCardTask(
+                task: FakeData.tasks[FakeData.tasks.length - index - 1],
+              );
             },
           ),
         ),

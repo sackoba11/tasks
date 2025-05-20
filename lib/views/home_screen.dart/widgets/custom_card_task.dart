@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../../models/task.dart';
 import '../../../utils/constants/colors.dart';
-import '../../../utils/constants/enums.dart';
 import '../../../utils/constants/routes.dart';
 import '../../../utils/constants/sizes.dart';
 
@@ -33,15 +32,10 @@ class CustomCardTask extends StatelessWidget {
                       borderRadius: BorderRadius.circular(
                         TSizes.borderRadiusLg,
                       ),
-                      color:
-                          task.tags.first == TaskTag.urgent
-                              ? TColors.levelHighdColor
-                              : task.tags.first == TaskTag.family
-                              ? TColors.levelMediumdColor
-                              : TColors.secondary.withOpacity(0.7),
+                      color: task.color,
                     ),
                     child: Text(
-                      task.tags.first.name,
+                      task.tag,
                       style: Theme.of(context).textTheme.labelSmall,
                     ),
                   ),

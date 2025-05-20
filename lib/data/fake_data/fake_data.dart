@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../../models/sub_task.dart';
 import '../../models/task.dart' show Task;
 import '../../utils/constants/enums.dart';
@@ -9,9 +11,10 @@ class FakeData {
       title: 'Aller au cinema',
       dueDate: DateTime.now().copyWith(day: 20, month: 5, year: 2025),
       createdAt: DateTime.now(),
-      tags: [TaskTag.family, TaskTag.health],
+      tag: TaskTag.family.name,
       status: TaskStatus.inProgress,
       description: 'description da la tâche aller au Cinema',
+      color: Colors.yellow,
       updatedAt: DateTime.now(),
       subtasks: [
         SubTask(
@@ -41,8 +44,9 @@ class FakeData {
       title: 'Aller au Marche',
       dueDate: DateTime.now().copyWith(day: 24, month: 5, year: 2025),
       createdAt: DateTime.now(),
-      tags: [TaskTag.finance],
+      tag: TaskTag.finance.name,
       status: TaskStatus.pending,
+      color: Colors.blue,
       description: 'description da la tâche aller au Marche',
       updatedAt: DateTime.now(),
       subtasks: [],
@@ -52,8 +56,9 @@ class FakeData {
       title: 'Aller a la Maison',
       dueDate: DateTime.now().copyWith(day: 27, month: 5, year: 2025),
       createdAt: DateTime.now(),
-      tags: [TaskTag.urgent],
+      tag: TaskTag.urgent.name,
       status: TaskStatus.completed,
+      color: Colors.red,
       description: 'description da la tâche aller au Maison',
       updatedAt: DateTime.now(),
       subtasks: [],
@@ -63,8 +68,9 @@ class FakeData {
       title: 'Aller au Village',
       dueDate: DateTime.now().copyWith(day: 30, month: 5, year: 2025),
       createdAt: DateTime.now(),
-      tags: [TaskTag.lowPriority],
+      tag: TaskTag.lowPriority.name,
       status: TaskStatus.overdue,
+      color: Colors.green,
       description: 'description da la tâche aller au Village',
       updatedAt: DateTime.now(),
       subtasks: [],
@@ -74,8 +80,9 @@ class FakeData {
       title: 'Aller au Champ',
       dueDate: DateTime.now().copyWith(day: 20, month: 5, year: 2025),
       createdAt: DateTime.now(),
-      tags: [TaskTag.other],
+      tag: TaskTag.other.name,
       status: TaskStatus.cancelled,
+      color: Colors.tealAccent,
       description: 'description da la tâche aller au Champ',
       updatedAt: DateTime.now(),
       subtasks: [],
