@@ -15,7 +15,7 @@ class BodyHomeScreen extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('En Cours', style: Theme.of(context).textTheme.headlineSmall),
+            Text('Tâches', style: Theme.of(context).textTheme.headlineSmall),
             TextButton(
               child: Text(
                 'Voir plus',

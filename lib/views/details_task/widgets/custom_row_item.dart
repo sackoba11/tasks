@@ -36,13 +36,11 @@ class CustomRowItem extends StatelessWidget {
               color: color,
               borderRadius: BorderRadius.circular(9),
             ),
-            child: Expanded(
-              child: Text(
-                value,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyLarge!.copyWith(color: TColors.black),
-              ),
+            child: Text(
+              value,
+              style: Theme.of(
+                context,
+              ).textTheme.bodyLarge!.copyWith(color: TColors.black),
             ),
           ),
         ),

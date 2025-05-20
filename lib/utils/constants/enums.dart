@@ -7,21 +7,21 @@
 // enum TaskLevel { urgente, moyenne, basse, autre }
 
 //Task status Enum
-enum TaskStatus { pending, inProgress, completed, overdue, cancelled, archived }
+enum TaskStatus { enAttente, enCours, terminee, enRetard, annulee, archivee }
 
 // Task Tags Enum
 enum TaskTag {
-  work,
-  personal,
+  travail,
+  personnel,
   urgent,
-  lowPriority,
+  faiblePriorite,
   finance,
-  shopping,
-  health,
-  learning,
-  travel,
-  family,
-  other,
+  courses,
+  sante,
+  apprendre,
+  voyage,
+  famille,
+  autre,
 }
 
 // Task Status Enum

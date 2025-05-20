@@ -19,7 +19,7 @@ class Task {
     required this.id,
     required this.title,
     required this.description,
-    this.status = TaskStatus.pending,
+    this.status = TaskStatus.enAttente,
     required this.dueDate,
     required this.createdAt,
     required this.color,

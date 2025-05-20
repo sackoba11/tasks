@@ -79,7 +79,7 @@ class DetailsTask extends StatelessWidget {
                     CustomRowItem(
                       title: 'Étiquette :',
                       color: task.color,
-                      value: task.tag,
+                      value: _formatStatus(task.tag),
                     ),
                     SizedBox(height: size.height * 0.02),
                   ],
@@ -103,9 +103,18 @@ class DetailsTask extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: TSizes.spaceBtwSections),
-                      Text(
-                        'Description',
-                        style: Theme.of(context).textTheme.bodySmall!,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Description',
+                            style: Theme.of(context).textTheme.bodySmall!,
+                          ),
+                          Text(
+                            'Status : ${_formatStatus(task.status.name)}',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ],
                       ),
                       CustomTextFormField(
                         labelText: task.description,
@@ -116,6 +125,10 @@ class DetailsTask extends StatelessWidget {
                         keyboardType: TextInputType.multiline,
                       ),
                       SizedBox(height: TSizes.spaceBtwItems),
+                      Text(
+                        ' (${task.subtasks.length} sous-tâches)',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
                       UniversalStepper(
                         elementCount: task.subtasks.length,
                         stepperDirection: Axis.vertical,
@@ -139,7 +152,7 @@ class DetailsTask extends StatelessWidget {
                                         style:
                                             Theme.of(
                                               context,
-                                            ).textTheme.labelLarge,
+                                            ).textTheme.bodyLarge,
                                         overflow: TextOverflow.clip,
                                       ),
                                       SizedBox(
@@ -208,5 +221,15 @@ class DetailsTask extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String _formatStatus(String status) {
+    return status
+        .replaceAllMapped(RegExp(r'([A-Z])'), (match) => ' ${match.group(0)}')
+        .replaceFirstMapped(
+          RegExp(r'^\w'),
+          (match) => match.group(0)!.toUpperCase(),
+        )
+        .trim();
   }
 }

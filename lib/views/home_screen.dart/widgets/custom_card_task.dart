@@ -35,11 +35,15 @@ class CustomCardTask extends StatelessWidget {
                       color: task.color,
                     ),
                     child: Text(
-                      task.tag,
+                      _formatStatus(task.tag),
+
                       style: Theme.of(context).textTheme.labelSmall,
                     ),
                   ),
-                  Text('82%', style: Theme.of(context).textTheme.labelSmall),
+                  Text(
+                    _formatStatus(task.status.name),
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
                 ],
               ),
               Padding(
@@ -83,5 +87,15 @@ class CustomCardTask extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String _formatStatus(String status) {
+    return status
+        .replaceAllMapped(RegExp(r'([A-Z])'), (match) => ' ${match.group(0)}')
+        .replaceFirstMapped(
+          RegExp(r'^\w'),
+          (match) => match.group(0)!.toUpperCase(),
+        )
+        .trim();
   }
 }
