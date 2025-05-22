@@ -12,7 +12,7 @@ class FakeData {
       dueDate: DateTime.now().copyWith(day: 20, month: 5, year: 2025),
       createdAt: DateTime.now(),
       tag: TaskTag.famille.name,
-      status: TaskStatus.enCours,
+      status: TaskStatus.terminee,
       description: 'description da la tâche aller au Cinema',
       color: Colors.yellow,
       updatedAt: DateTime.now(),

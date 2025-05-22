@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../data/fake_data/fake_data.dart';
 import '../../models/task.dart';
 import '../../utils/constants/enums.dart';
+import '../../utils/constants/routes.dart';
 import '../../utils/constants/sizes.dart';
 import '../home_screen.dart/widgets/custom_card_task.dart';
 
@@ -41,6 +42,7 @@ class TaskCompletedScreen extends StatelessWidget {
                 itemCount: completedTasks.length,
                 itemBuilder: (context, index) {
                   return CustomCardTask(
+                    pathToPop: Routes.taskCompleted,
                     task: completedTasks[completedTasks.length - index - 1],
                   );
                 },

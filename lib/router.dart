@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'models/task.dart';
 import 'utils/constants/routes.dart';
 import 'views/add_task/add_task_screen.dart';
+import 'views/all_tasks_screen/all_tasks_screen.dart';
 import 'views/details_task/details_task.dart';
 import 'views/home_screen.dart/home_screen.dart';
 import 'views/profile/profile_screen.dart';
@@ -29,14 +30,22 @@ class Routers {
             navigatorKey: _sectionNavigatorKey,
             routes: [
               GoRoute(
+                name: Routes.home,
                 path: Routes.home,
                 builder: (context, state) => HomeScreen(),
+                routes: [
+                  GoRoute(
+                    path: Routes.allTasks,
+                    builder: (context, state) => AllTasksScreen(),
+                  ),
+                ],
               ),
             ],
           ),
           StatefulShellBranch(
             routes: [
               GoRoute(
+                name: Routes.taskInProgress,
                 path: Routes.taskInProgress,
                 builder: (context, state) => TaskInProgressScreen(),
               ),
@@ -46,6 +55,7 @@ class Routers {
           StatefulShellBranch(
             routes: [
               GoRoute(
+                name: Routes.taskCompleted,
                 path: Routes.taskCompleted,
                 builder: (context, state) => TaskCompletedScreen(),
               ),
@@ -54,6 +64,7 @@ class Routers {
           StatefulShellBranch(
             routes: [
               GoRoute(
+                name: Routes.profile,
                 path: Routes.profile,
                 builder: (context, state) => ProfileScreen(),
               ),
@@ -62,6 +73,7 @@ class Routers {
           StatefulShellBranch(
             routes: [
               GoRoute(
+                name: Routes.addTask,
                 path: Routes.addTask,
                 builder: (context, state) => AddTaskScreen(),
               ),
@@ -71,8 +83,12 @@ class Routers {
       ),
       GoRoute(
         path: Routes.taskDetails,
-
-        builder: (context, state) => DetailsTask(task: state.extra as Task),
+        name: Routes.taskDetails,
+        builder: (context, state) {
+          Task task = state.extra as Task;
+          String? path = state.uri.queryParameters['path'];
+          return DetailsTask(task: task, pathToPop: path);
+        },
       ),
     ],
   );

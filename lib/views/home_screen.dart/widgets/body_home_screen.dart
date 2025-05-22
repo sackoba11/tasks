@@ -22,7 +22,7 @@ class BodyHomeScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               onPressed: () {
-                context.go(Routes.taskInProgress);
+                context.go(Routes.allTasks);
               },
             ),
           ],
@@ -34,6 +34,7 @@ class BodyHomeScreen extends StatelessWidget {
             itemCount: FakeData.tasks.length,
             itemBuilder: (context, index) {
               return CustomCardTask(
+                pathToPop: Routes.home,
                 task: FakeData.tasks[FakeData.tasks.length - index - 1],
               );
             },

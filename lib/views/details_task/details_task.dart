@@ -12,15 +12,16 @@ import '../../widgets/custom_text_form_field.dart';
 import 'widgets/custom_row_item.dart';
 
 class DetailsTask extends StatelessWidget {
-  const DetailsTask({super.key, required this.task});
+  const DetailsTask({super.key, required this.task, required this.pathToPop});
 
   final Task task;
+  final String? pathToPop;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
     return WillPopScope(
       onWillPop: () async {
-        context.go(Routes.home);
+        context.go(pathToPop!);
         return false;
       },
       child: Scaffold(
@@ -28,7 +29,7 @@ class DetailsTask extends StatelessWidget {
         appBar: AppBar(
           leading: IconButton(
             icon: Icon(Iconsax.arrow_left_copy, color: TColors.black),
-            onPressed: () => context.go(Routes.home),
+            onPressed: () => context.go(pathToPop!),
           ),
           actions: [
             IconButton(

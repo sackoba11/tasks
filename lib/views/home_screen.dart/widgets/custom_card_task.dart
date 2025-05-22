@@ -7,9 +7,13 @@ import '../../../utils/constants/routes.dart';
 import '../../../utils/constants/sizes.dart';
 
 class CustomCardTask extends StatelessWidget {
-  const CustomCardTask({super.key, required this.task});
+  const CustomCardTask({
+    super.key,
+    required this.task,
+    required this.pathToPop,
+  });
   final Task task;
-
+  final String pathToPop;
   @override
   Widget build(BuildContext context) {
     double calculateSubtasksPercentage(List<dynamic> subtasks) {
@@ -23,7 +27,11 @@ class CustomCardTask extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        context.go(Routes.taskDetails, extra: task);
+        context.goNamed(
+          Routes.taskDetails,
+          extra: task,
+          queryParameters: {'path': pathToPop},
+        );
       },
       child: Card(
         color: Theme.of(context).cardColor,

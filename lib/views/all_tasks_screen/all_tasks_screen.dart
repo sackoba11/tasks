@@ -2,21 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../../data/fake_data/fake_data.dart';
 import '../../models/task.dart';
-import '../../utils/constants/enums.dart';
 import '../../utils/constants/routes.dart';
 import '../../utils/constants/sizes.dart';
 import '../home_screen.dart/widgets/custom_card_task.dart';
 
-class TaskInProgressScreen extends StatelessWidget {
-  const TaskInProgressScreen({super.key});
+class AllTasksScreen extends StatelessWidget {
+  const AllTasksScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Filter tasks to only include in-progress ones
-    List<Task> inProgressTasks =
-        FakeData.tasks
-            .where((task) => task.status == TaskStatus.enCours)
-            .toList();
+    List<Task> tasksList = FakeData.tasks;
     return Scaffold(
       appBar: AppBar(
         title: Padding(
@@ -25,30 +20,31 @@ class TaskInProgressScreen extends StatelessWidget {
             top: TSizes.spaceAppBar,
           ),
           child: Text(
-            'Tâches en cours',
+            'Toutes les Tâches',
             style: Theme.of(context).textTheme.headlineMedium,
           ),
         ),
       ),
       body:
-          inProgressTasks.isNotEmpty
+          tasksList.isNotEmpty
               ? ListView.builder(
+                shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
                 padding: const EdgeInsets.symmetric(
                   horizontal: TSizes.defaultSpace,
                   vertical: TSizes.defaultSpace,
                 ),
-                itemCount: inProgressTasks.length,
+                itemCount: tasksList.length,
                 itemBuilder: (context, index) {
                   return CustomCardTask(
-                    pathToPop: Routes.taskInProgress,
-                    task: inProgressTasks[inProgressTasks.length - index - 1],
+                    pathToPop: Routes.allTasks,
+                    task: tasksList[tasksList.length - index - 1],
                   );
                 },
               )
               : Center(
                 child: Text(
-                  'Aucune tâche en cours',
+                  'Aucune tâche trouvée',
                   style: Theme.of(context).textTheme.labelLarge,
                 ),
               ),
