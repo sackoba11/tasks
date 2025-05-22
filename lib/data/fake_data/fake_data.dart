@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../models/sub_task.dart';
-import '../../models/task.dart' show Task;
+import '../../models/task.dart';
 import '../../utils/constants/enums.dart';
 
 class FakeData {
@@ -12,7 +12,7 @@ class FakeData {
       dueDate: DateTime.now().copyWith(day: 20, month: 5, year: 2025),
       createdAt: DateTime.now(),
       tag: TaskTag.famille.name,
-      status: TaskStatus.enCours,
+      status: TaskStatus.terminee,
       description: 'description da la tâche aller au Cinema',
       color: Colors.yellow,
       updatedAt: DateTime.now(),
@@ -20,14 +20,15 @@ class FakeData {
         SubTask(
           id: '1',
           title: 'prendre le ticket',
-          description: 'Faire le rang pour acheter le ticket la veille',
-          status: true,
+          description:
+              'Faire le rang pour acheter le ticket la veille egbeg gegengmne egnegne',
+          isDone: true,
         ),
         SubTask(
           id: '2',
           title: 'Prendre le taxi',
           description: 'Commander un taxi Yango pour le Cinema',
-          status: true,
+          isDone: true,
         ),
         SubTask(
           id: '3',

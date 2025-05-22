@@ -125,9 +125,11 @@ class DetailsTask extends StatelessWidget {
                         keyboardType: TextInputType.multiline,
                       ),
                       SizedBox(height: TSizes.spaceBtwItems),
-                      Text(
-                        ' (${task.subtasks.length} sous-tâches)',
-                        style: Theme.of(context).textTheme.bodySmall,
+                      Center(
+                        child: Text(
+                          ' (${task.subtasks.length} sous-tâches)',
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
                       ),
                       UniversalStepper(
                         elementCount: task.subtasks.length,
@@ -135,7 +137,6 @@ class DetailsTask extends StatelessWidget {
                         elementBuilder: (context, index) {
                           return Expanded(
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
                                   padding: const EdgeInsets.only(
@@ -147,16 +148,38 @@ class DetailsTask extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        task.subtasks[index].title,
-                                        style:
-                                            Theme.of(
-                                              context,
-                                            ).textTheme.bodyLarge,
-                                        overflow: TextOverflow.clip,
-                                      ),
                                       SizedBox(
-                                        width: size.width * .64,
+                                        width: size.width * .8,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              task.subtasks[index].title,
+                                              style:
+                                                  Theme.of(
+                                                    context,
+                                                  ).textTheme.bodyLarge,
+                                              overflow: TextOverflow.clip,
+                                            ),
+
+                                            Icon(
+                                              task.subtasks[index].isDone
+                                                  ? Icons.check_circle_outline
+                                                  : Icons.circle_outlined,
+                                              color:
+                                                  task.subtasks[index].isDone
+                                                      ? TColors.success
+                                                      : TColors.darkGrey,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(height: TSizes.sm),
+                                      SizedBox(
+                                        width: size.width * .8,
                                         child: Text(
                                           task.subtasks[index].description,
                                           style:

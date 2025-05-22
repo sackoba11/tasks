@@ -14,7 +14,7 @@ class CustomCardTask extends StatelessWidget {
   Widget build(BuildContext context) {
     double calculateSubtasksPercentage(List<dynamic> subtasks) {
       if (subtasks.isEmpty) return 0;
-      final doneCount = subtasks.where((s) => s.status == true).length;
+      final doneCount = subtasks.where((s) => s.isDone == true).length;
       return (doneCount / subtasks.length) * 100;
     }
 
