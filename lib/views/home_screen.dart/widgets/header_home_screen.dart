@@ -49,7 +49,9 @@ class HeaderHomeScreen extends StatelessWidget {
                       title: 'En attente',
                       numberTask: 23,
                       color: TColors.cardTask2Color,
-                      onTap: () {},
+                      onTap: () {
+                        context.go(Routes.taskPending);
+                      },
                     ),
                     const SizedBox(height: TSizes.spaceBtwItems),
                     CustomCard2(

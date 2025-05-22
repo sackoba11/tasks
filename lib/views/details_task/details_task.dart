@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
-import 'package:tasks/utils/constants/text_strings.dart';
 import 'package:universal_stepper/universal_stepper.dart';
 
 import '../../models/task.dart';
 import '../../utils/constants/colors.dart';
-import '../../utils/constants/routes.dart';
 import '../../utils/constants/sizes.dart';
+import '../../utils/constants/text_strings.dart';
 import '../../widgets/custom_text_form_field.dart';
 import 'widgets/custom_row_item.dart';
 
@@ -150,7 +149,7 @@ class DetailsTask extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(
-                                        width: size.width * .8,
+                                        width: size.width * .74,
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -180,13 +179,14 @@ class DetailsTask extends StatelessWidget {
                                       ),
                                       SizedBox(height: TSizes.sm),
                                       SizedBox(
-                                        width: size.width * .8,
+                                        width: size.width * .7,
                                         child: Text(
                                           task.subtasks[index].description,
-                                          style:
-                                              Theme.of(
-                                                context,
-                                              ).textTheme.bodySmall,
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.bodySmall!.copyWith(
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                           overflow: TextOverflow.clip,
                                         ),
                                       ),

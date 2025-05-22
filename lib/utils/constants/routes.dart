@@ -8,6 +8,7 @@ class Routes {
   static const String allTasks = '/all-tasks';
   static const String addTask = '/add-task';
   static const String taskInProgress = '/task-in-progress';
+  static const String taskPending = '/task-pending';
   static const String taskCompleted = '/task-completed';
 
   // Auth routes

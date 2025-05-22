@@ -11,6 +11,7 @@ import 'views/profile/profile_screen.dart';
 import 'views/task_completed/task_completed_screen.dart';
 import 'views/task_in_progress/task_in_progress_screen.dart';
 import 'views/base_screen.dart';
+import 'views/tasks_pending_screen/tasks_pending_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _sectionNavigatorKey = GlobalKey<NavigatorState>();
@@ -37,6 +38,10 @@ class Routers {
                   GoRoute(
                     path: Routes.allTasks,
                     builder: (context, state) => AllTasksScreen(),
+                  ),
+                  GoRoute(
+                    path: Routes.taskPending,
+                    builder: (context, state) => TasksPendingScreen(),
                   ),
                 ],
               ),

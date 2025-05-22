@@ -32,6 +32,16 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String _formatStatus(String status) {
+      return status
+          .replaceAllMapped(RegExp(r'([A-Z])'), (match) => ' ${match.group(0)}')
+          .replaceFirstMapped(
+            RegExp(r'^\w'),
+            (match) => match.group(0)!.toUpperCase(),
+          )
+          .trim();
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Ajouter une tâche'),
@@ -92,9 +102,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       child: DropdownButtonFormField(
                         items:
                             TaskTag.values.map((e) {
-                              String name =
-                                  e.name[0].toUpperCase() +
-                                  e.name.substring(1).toLowerCase();
+                              String name = _formatStatus(e.name);
                               return DropdownMenuItem(
                                 value: e.name,
                                 child: Text(name),
