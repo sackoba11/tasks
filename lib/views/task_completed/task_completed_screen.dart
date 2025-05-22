@@ -11,10 +11,10 @@ class TaskCompletedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int completedTasksCount =
+    List<Task> completedTasks =
         FakeData.tasks
             .where((task) => task.status == TaskStatus.terminee)
-            .length;
+            .toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -29,25 +29,28 @@ class TaskCompletedScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView.builder(
-        shrinkWrap: true,
-        physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.symmetric(
-          horizontal: TSizes.defaultSpace,
-          vertical: TSizes.defaultSpace,
-        ),
-        itemCount: completedTasksCount,
-        itemBuilder: (context, index) {
-          // Filter tasks to only include completed ones
-          List<Task> completedTasks =
-              FakeData.tasks
-                  .where((task) => task.status == TaskStatus.terminee)
-                  .toList();
-          return CustomCardTask(
-            task: completedTasks[completedTasks.length - index - 1],
-          );
-        },
-      ),
+      body:
+          completedTasks.isNotEmpty
+              ? ListView.builder(
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: TSizes.defaultSpace,
+                  vertical: TSizes.defaultSpace,
+                ),
+                itemCount: completedTasks.length,
+                itemBuilder: (context, index) {
+                  return CustomCardTask(
+                    task: completedTasks[completedTasks.length - index - 1],
+                  );
+                },
+              )
+              : Center(
+                child: Text(
+                  'Aucune tâche Terminée',
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
+              ),
     );
   }
 }
