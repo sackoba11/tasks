@@ -21,14 +21,21 @@ class FakeData {
           id: '1',
           title: 'prendre le ticket',
           description: 'Faire le rang pour acheter le ticket la veille',
+          status: true,
         ),
         SubTask(
           id: '2',
           title: 'Prendre le taxi',
           description: 'Commander un taxi Yango pour le Cinema',
+          status: true,
         ),
         SubTask(
           id: '3',
+          title: 'Rentrer dans le Cinema',
+          description: 'Faire le rang pour entrer dans le Cinema',
+        ),
+        SubTask(
+          id: '4',
           title: 'Rentrer dans le Cinema',
           description: 'Faire le rang pour entrer dans le Cinema',
         ),

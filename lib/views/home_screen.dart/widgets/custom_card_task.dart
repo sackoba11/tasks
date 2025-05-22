@@ -12,6 +12,15 @@ class CustomCardTask extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double calculateSubtasksPercentage(List<dynamic> subtasks) {
+      if (subtasks.isEmpty) return 0;
+      final doneCount = subtasks.where((s) => s.status == true).length;
+      return (doneCount / subtasks.length) * 100;
+    }
+
+    double percentage = calculateSubtasksPercentage(task.subtasks);
+    String formattedPercentage = percentage.toStringAsFixed(1);
+
     return InkWell(
       onTap: () {
         context.go(Routes.taskDetails, extra: task);
@@ -70,15 +79,25 @@ class CustomCardTask extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'Date limite : ',
-                      style: Theme.of(context).textTheme.bodySmall,
+                    Row(
+                      children: [
+                        Text(
+                          'Date limite : ',
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                        Text(
+                          '${task.dueDate.day}-${task.dueDate.month}-${task.dueDate.year}',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ],
                     ),
-                    Text(
-                      '${task.dueDate.day}-${task.dueDate.month}-${task.dueDate.year}',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
+                    if (task.subtasks.isNotEmpty)
+                      Text(
+                        '$formattedPercentage%',
+                        style: Theme.of(context).textTheme.labelSmall,
+                      ),
                   ],
                 ),
               ),
