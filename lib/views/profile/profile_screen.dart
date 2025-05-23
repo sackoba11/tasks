@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
-import 'package:tasks/widgets/custom_text_form_field.dart';
 
+import '../../common/widgets/custom_text_form_field.dart';
 import '../../utils/constants/image_strings.dart';
 import '../../utils/constants/sizes.dart';
 

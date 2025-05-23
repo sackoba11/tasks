@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../models/task.dart';
-import '../../../utils/constants/colors.dart';
-import '../../../utils/constants/routes.dart';
-import '../../../utils/constants/sizes.dart';
+import '../../helpers/helpers.dart';
+import '../../models/task.dart';
+import '../../utils/constants/colors.dart';
+import '../../utils/constants/routes.dart';
+import '../../utils/constants/sizes.dart';
+
 
 class CustomCardTask extends StatelessWidget {
   const CustomCardTask({
@@ -52,13 +54,13 @@ class CustomCardTask extends StatelessWidget {
                       color: task.color,
                     ),
                     child: Text(
-                      _formatStatus(task.tag),
+                      Helpers.formatStatus(task.tag),
 
                       style: Theme.of(context).textTheme.labelSmall,
                     ),
                   ),
                   Text(
-                    _formatStatus(task.status.name),
+                    Helpers.formatStatus(task.status.name),
                     style: Theme.of(context).textTheme.labelSmall,
                   ),
                 ],
@@ -116,13 +118,5 @@ class CustomCardTask extends StatelessWidget {
     );
   }
 
-  String _formatStatus(String status) {
-    return status
-        .replaceAllMapped(RegExp(r'([A-Z])'), (match) => ' ${match.group(0)}')
-        .replaceFirstMapped(
-          RegExp(r'^\w'),
-          (match) => match.group(0)!.toUpperCase(),
-        )
-        .trim();
-  }
+ 
 }

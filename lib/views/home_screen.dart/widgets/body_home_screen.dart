@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../common/widgets/custom_card_task.dart';
 import '../../../data/fake_data/fake_data.dart';
 import '../../../utils/constants/routes.dart';
-import 'custom_card_task.dart';
 
 class BodyHomeScreen extends StatelessWidget {
   const BodyHomeScreen({super.key});
@@ -31,7 +31,7 @@ class BodyHomeScreen extends StatelessWidget {
           child: ListView.builder(
             shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
-            itemCount: FakeData.tasks.length,
+            itemCount: 5,
             itemBuilder: (context, index) {
               return CustomCardTask(
                 pathToPop: Routes.home,

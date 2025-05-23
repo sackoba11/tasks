@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
-import 'package:universal_stepper/universal_stepper.dart';
 
+import '../../common/widgets/custom_text_form_field.dart';
+import '../../helpers/helpers.dart';
 import '../../models/task.dart';
 import '../../utils/constants/colors.dart';
 import '../../utils/constants/sizes.dart';
 import '../../utils/constants/text_strings.dart';
-import '../../widgets/custom_text_form_field.dart';
+import 'widgets/custom_app_bar.dart';
 import 'widgets/custom_row_item.dart';
+import 'widgets/custom_universal_stepper.dart';
+import 'widgets/description_screen.dart';
+import 'widgets/header_screen.dart';
 
 class DetailsTask extends StatelessWidget {
   const DetailsTask({super.key, required this.task, required this.pathToPop});
@@ -25,235 +28,86 @@ class DetailsTask extends StatelessWidget {
       },
       child: Scaffold(
         backgroundColor: TColors.cardTaskColor,
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Iconsax.arrow_left_copy, color: TColors.black),
-            onPressed: () => context.go(pathToPop!),
-          ),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.share_outlined, color: TColors.black),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(Iconsax.edit_2_copy, color: TColors.black),
-              onPressed: () {},
-            ),
-          ],
-          actionsPadding: EdgeInsets.only(right: TSizes.spaceAppBar),
-        ),
+        appBar: customAppBar(context: context, pathToPop: pathToPop!),
         body: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
-              child: SizedBox(
-                height: size.height * 0.34,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(height: size.height * 0.02),
-                    Center(
-                      child: Text(
-                        task.title,
-                        style: Theme.of(context).textTheme.headlineMedium!
-                            .copyWith(color: TColors.black),
-                      ),
-                    ),
-                    CustomRowItem(
-                      title: 'Date Debut: ',
-                      value:
-                          '${TTexts.days[task.createdAt.weekday - 1]}, ${task.createdAt.day} ${TTexts.month[task.createdAt.month - 1]} ${task.createdAt.year}',
-                    ),
-
-                    CustomRowItem(
-                      title: 'Date Fin : ',
-                      value:
-                          '${TTexts.days[task.dueDate.weekday - 1]}, ${task.dueDate.day} ${TTexts.month[task.dueDate.month - 1]} ${task.dueDate.year}',
-                    ),
-                    CustomRowItem(
-                      title: 'Temps',
-                      value:
-                          '${task.createdAt.hour}:${task.createdAt.minute} - ${task.dueDate.copyWith(hour: 20).hour}:${task.dueDate.minute} ${task.dueDate.timeZoneName}',
-                    ),
-                    CustomRowItem(
-                      title: 'Étiquette :',
-                      color: task.color,
-                      value: _formatStatus(task.tag),
-                    ),
-                    SizedBox(height: size.height * 0.02),
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              height: size.height * 0.5478,
-              decoration: BoxDecoration(
-                color: Theme.of(context).canvasColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
-                ),
-              ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: TSizes.spaceBtwSections),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Description',
-                            style: Theme.of(context).textTheme.bodySmall!,
-                          ),
-                          Text(
-                            'Status : ${_formatStatus(task.status.name)}',
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                        ],
-                      ),
-                      CustomTextFormField(
-                        labelText: task.description,
-                        hintText: '',
-                        enable: false,
-                        maxLines: 5,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                        keyboardType: TextInputType.multiline,
-                      ),
-                      SizedBox(height: TSizes.spaceBtwItems),
-                      Center(
-                        child: Text(
-                          ' (${task.subtasks.length} sous-tâches)',
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                      ),
-                      UniversalStepper(
-                        elementCount: task.subtasks.length,
-                        stepperDirection: Axis.vertical,
-                        elementBuilder: (context, index) {
-                          return Expanded(
-                            child: Row(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.only(
-                                    left: 10,
-                                    bottom: 10,
-                                    top: 10,
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        width: size.width * .74,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              task.subtasks[index].title,
-                                              style:
-                                                  Theme.of(
-                                                    context,
-                                                  ).textTheme.bodyLarge,
-                                              overflow: TextOverflow.clip,
-                                            ),
-
-                                            Icon(
-                                              task.subtasks[index].isDone
-                                                  ? Icons.check_circle_outline
-                                                  : Icons.circle_outlined,
-                                              color:
-                                                  task.subtasks[index].isDone
-                                                      ? TColors.success
-                                                      : TColors.darkGrey,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(height: TSizes.sm),
-                                      SizedBox(
-                                        width: size.width * .7,
-                                        child: Text(
-                                          task.subtasks[index].description,
-                                          style: Theme.of(
-                                            context,
-                                          ).textTheme.bodySmall!.copyWith(
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                          overflow: TextOverflow.clip,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                        badgeBuilder: (context, index) {
-                          return Container(
-                            width: 30,
-                            padding: const EdgeInsets.all(6),
-                            decoration: const BoxDecoration(
-                              color: TColors.success,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(30),
-                              ),
-                            ),
-                            child: FittedBox(
-                              child: Icon(
-                                Icons.check_circle_outline_sharp,
-                                color: TColors.white,
-                              ),
-                            ),
-                          );
-                        },
-                        pathBuilder: (context, index) {
-                          return Container(
-                            color:
-                                index == task.subtasks.length
-                                    ? Colors.transparent
-                                    : index == 0
-                                    ? Colors.transparent
-                                    : TColors.success,
-                            width: 4,
-                          );
-                        },
-                        subPathBuilder: (context, index) {
-                          return Container(
-                            color:
-                                index == task.subtasks.length - 1
-                                    ? Colors.transparent
-                                    : TColors.success,
-                            width: 4,
-                          );
-                        },
-                      ),
-                    ],
+            HeaderScreen(
+              height: size.height,
+              children: [
+                SizedBox(height: size.height * 0.02),
+                Center(
+                  child: Text(
+                    task.title,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.headlineMedium!.copyWith(color: TColors.black),
                   ),
                 ),
-              ),
+                CustomRowItem(
+                  title: 'Date Debut: ',
+                  value:
+                      '${TTexts.days[task.createdAt.weekday - 1]}, ${task.createdAt.day} ${TTexts.month[task.createdAt.month - 1]} ${task.createdAt.year}',
+                ),
+
+                CustomRowItem(
+                  title: 'Date Fin : ',
+                  value:
+                      '${TTexts.days[task.dueDate.weekday - 1]}, ${task.dueDate.day} ${TTexts.month[task.dueDate.month - 1]} ${task.dueDate.year}',
+                ),
+                CustomRowItem(
+                  title: 'Temps',
+                  value:
+                      '${task.createdAt.hour}:${task.createdAt.minute} - ${task.dueDate.copyWith(hour: 20).hour}:${task.dueDate.minute} ${task.dueDate.timeZoneName}',
+                ),
+                CustomRowItem(
+                  title: 'Étiquette :',
+                  color: task.color,
+                  value: Helpers.formatStatus(task.tag),
+                ),
+                SizedBox(height: size.height * 0.02),
+              ],
+            ),
+            DescriptionScreen(
+              height: size.height,
+              children: [
+                SizedBox(height: TSizes.spaceBtwSections),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Description',
+                      style: Theme.of(context).textTheme.bodySmall!,
+                    ),
+                    Text(
+                      'Status : ${Helpers.formatStatus(task.status.name)}',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
+                ),
+                CustomTextFormField(
+                  labelText: task.description,
+                  hintText: '',
+                  enable: false,
+                  maxLines: 5,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  keyboardType: TextInputType.multiline,
+                ),
+                SizedBox(height: TSizes.spaceBtwItems),
+                Center(
+                  child: Text(
+                    ' (${task.subtasks.length} sous-tâches)',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ),
+                CustomUniversalStepper(
+                  subtasks: task.subtasks,
+                  width: size.width,
+                ),
+              ],
             ),
           ],
         ),
       ),
     );
-  }
-
-  String _formatStatus(String status) {
-    return status
-        .replaceAllMapped(RegExp(r'([A-Z])'), (match) => ' ${match.group(0)}')
-        .replaceFirstMapped(
-          RegExp(r'^\w'),
-          (match) => match.group(0)!.toUpperCase(),
-        )
-        .trim();
   }
 }

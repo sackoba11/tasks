@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../common/widgets/body_screen.dart';
+import '../../common/widgets/custom_list_view_builder.dart';
+import '../../common/widgets/search_text_field.dart';
+import '../../common/widgets/title_app_bar.dart';
 import '../../data/fake_data/fake_data.dart';
 import '../../models/task.dart';
 import '../../utils/constants/enums.dart';
-import '../../utils/constants/routes.dart';
-import '../../utils/constants/sizes.dart';
-import '../home_screen.dart/widgets/custom_card_task.dart';
 
 class TaskCompletedScreen extends StatelessWidget {
   const TaskCompletedScreen({super.key});
@@ -16,43 +17,17 @@ class TaskCompletedScreen extends StatelessWidget {
         FakeData.tasks
             .where((task) => task.status == TaskStatus.terminee)
             .toList();
+    TextEditingController searchController = TextEditingController();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Padding(
-          padding: const EdgeInsets.only(
-            left: TSizes.spaceAppBar,
-            top: TSizes.spaceAppBar,
-          ),
-          child: Text(
-            'Tâches Terminées',
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
-        ),
+      appBar: AppBar(title: TitleAppBar(title: 'Tâches Terminées')),
+      body: BodyScreen(
+        children: [
+          SearchTextField(searchController: searchController),
+
+          CustomListViewBuilder(tasksList: completedTasks),
+        ],
       ),
-      body:
-          completedTasks.isNotEmpty
-              ? ListView.builder(
-                shrinkWrap: true,
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: TSizes.defaultSpace,
-                  vertical: TSizes.defaultSpace,
-                ),
-                itemCount: completedTasks.length,
-                itemBuilder: (context, index) {
-                  return CustomCardTask(
-                    pathToPop: Routes.taskCompleted,
-                    task: completedTasks[completedTasks.length - index - 1],
-                  );
-                },
-              )
-              : Center(
-                child: Text(
-                  'Aucune tâche Terminée',
-                  style: Theme.of(context).textTheme.labelLarge,
-                ),
-              ),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TitleAppBar extends StatelessWidget {
-  const TitleAppBar({super.key, required this.userName});
+class TitleAppBarHomeScreen extends StatelessWidget {
+  const TitleAppBarHomeScreen({super.key, required this.userName});
   final String userName;
 
   @override

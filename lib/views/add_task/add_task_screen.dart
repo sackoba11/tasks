@@ -1,15 +1,17 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tasks/models/sub_task.dart';
-import 'package:tasks/models/task.dart';
-import 'package:tasks/utils/constants/enums.dart';
 
+import '../../common/widgets/custom_elevated_button.dart';
+import '../../common/widgets/custom_icon_button.dart';
+import '../../common/widgets/custom_text_form_field.dart';
 import '../../data/fake_data/fake_data.dart';
+import '../../helpers/helpers.dart';
+import '../../models/sub_task.dart';
+import '../../models/task.dart';
+import '../../utils/constants/enums.dart';
 import '../../utils/constants/sizes.dart';
-import '../../widgets/custom_elevated_button.dart';
 import 'widgets/custom_stepper.dart';
-import '../../widgets/custom_text_form_field.dart';
 import 'widgets/date_icon_button.dart';
 
 class AddTaskScreen extends StatefulWidget {
@@ -32,24 +34,13 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String _formatStatus(String status) {
-      return status
-          .replaceAllMapped(RegExp(r'([A-Z])'), (match) => ' ${match.group(0)}')
-          .replaceFirstMapped(
-            RegExp(r'^\w'),
-            (match) => match.group(0)!.toUpperCase(),
-          )
-          .trim();
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Ajouter une tâche'),
-        leading: IconButton(
-          padding: const EdgeInsets.only(left: TSizes.spaceAppBar),
-          icon: const Icon(Icons.close),
+        leading: CustomIconButton(
+          icon: Icons.close,
           onPressed: () {
-            Navigator.of(context).pop();
+            context.pop();
           },
         ),
       ),
@@ -102,7 +93,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       child: DropdownButtonFormField(
                         items:
                             TaskTag.values.map((e) {
-                              String name = _formatStatus(e.name);
+                              String name = Helpers.formatStatus(e.name);
                               return DropdownMenuItem(
                                 value: e.name,
                                 child: Text(name),
@@ -184,7 +175,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     subtasks: subTask,
                   ),
                 );
-                setState(() {});
                 context.pop();
               },
             ),

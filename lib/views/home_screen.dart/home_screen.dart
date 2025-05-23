@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
+import '../../common/widgets/custom_icon_button.dart';
 import '../../utils/constants/sizes.dart';
 import 'widgets/body_home_screen.dart';
-import 'widgets/custom_icon_button.dart';
 import 'widgets/header_home_screen.dart';
 import 'widgets/title_app_bar.dart';
 
@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Padding(
           padding: const EdgeInsets.only(left: TSizes.spaceAppBar),
-          child: TitleAppBar(userName: 'Sacko'),
+          child: TitleAppBarHomeScreen(userName: 'Sacko'),
         ),
         actions: [
           CustomIconButton(icon: Iconsax.notification_copy, onPressed: () {}),
