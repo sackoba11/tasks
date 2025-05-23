@@ -30,7 +30,7 @@ class CustomUniversalStepper extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width:width * .74,
+                      width: width * .77,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +55,7 @@ class CustomUniversalStepper extends StatelessWidget {
                     ),
                     SizedBox(height: TSizes.sm),
                     SizedBox(
-                      width: width * .7,
+                      width: width * .77,
                       child: Text(
                         subtasks[index].description,
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(

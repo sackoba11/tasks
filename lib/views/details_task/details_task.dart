@@ -45,19 +45,16 @@ class DetailsTask extends StatelessWidget {
                 ),
                 CustomRowItem(
                   title: 'Date Debut: ',
-                  value:
-                      '${TTexts.days[task.createdAt.weekday - 1]}, ${task.createdAt.day} ${TTexts.month[task.createdAt.month - 1]} ${task.createdAt.year}',
+                  value: Helpers.formatDate(task.createdAt),
                 ),
-
                 CustomRowItem(
                   title: 'Date Fin : ',
-                  value:
-                      '${TTexts.days[task.dueDate.weekday - 1]}, ${task.dueDate.day} ${TTexts.month[task.dueDate.month - 1]} ${task.dueDate.year}',
+                  value: Helpers.formatDate(task.dueDate),
                 ),
                 CustomRowItem(
                   title: 'Temps',
                   value:
-                      '${task.createdAt.hour}:${task.createdAt.minute} - ${task.dueDate.copyWith(hour: 20).hour}:${task.dueDate.minute} ${task.dueDate.timeZoneName}',
+                      '${Helpers.formatHour(task.createdAt)} - ${Helpers.formatHour(task.dueDate.copyWith(hour: 20))} ${task.dueDate.timeZoneName}',
                 ),
                 CustomRowItem(
                   title: 'Étiquette :',

@@ -25,7 +25,7 @@ class _AllTasksScreenState extends State<AllTasksScreen> {
         children: [
           SearchTextField(searchController: searchController),
 
-          CustomListViewBuilder(tasksList: tasksList),
+          Expanded(child: CustomListViewBuilder(tasksList: tasksList)),
         ],
       ),
     );

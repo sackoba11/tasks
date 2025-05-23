@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../models/task.dart';
 import '../../utils/constants/routes.dart';
-import '../../utils/constants/sizes.dart';
 import 'custom_card_task.dart';
 
 class CustomListViewBuilder extends StatelessWidget {
@@ -16,10 +15,7 @@ class CustomListViewBuilder extends StatelessWidget {
         ? ListView.builder(
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.symmetric(
-            horizontal: TSizes.defaultSpace,
-            vertical: TSizes.defaultSpace,
-          ),
+
           itemCount: tasksList.length,
           itemBuilder: (context, index) {
             return CustomCardTask(
