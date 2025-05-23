@@ -28,6 +28,8 @@ dependencies:
   modal_bottom_sheet: ^3.0.0
   universal_stepper: ^1.0.0+1
   flex_color_picker: ^3.7.1
+  cloud_firestore: ^5.6.8
+  skeletonizer: ^1.4.3
 
     
   
