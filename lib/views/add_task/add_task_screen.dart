@@ -1,10 +1,12 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../common/widgets/custom_elevated_button.dart';
 import '../../common/widgets/custom_icon_button.dart';
 import '../../common/widgets/custom_text_form_field.dart';
+import '../../cubit/task_cubit/task_cubit.dart';
 import '../../data/fake_data/fake_data.dart';
 import '../../helpers/helpers.dart';
 import '../../models/sub_task.dart';
@@ -163,8 +165,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             child: CustomElevatedButton(
               title: 'Ajouter la tâche',
               onPressed: () {
-                FakeData.tasks.add(
-                  Task(
+                BlocProvider.of<TaskCubit>(context).addTasks(
+                  task: Task(
                     id: '${FakeData.tasks.length + 1}',
                     title: titleController.text,
                     description: descriptionController.text,

@@ -14,6 +14,7 @@ class CustomListViewBuilder extends StatelessWidget {
     return tasksList.isNotEmpty
         ? ListView.builder(
           shrinkWrap: true,
+
           physics: const BouncingScrollPhysics(),
 
           itemCount: tasksList.length,

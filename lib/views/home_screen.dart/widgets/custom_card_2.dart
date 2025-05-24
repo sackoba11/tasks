@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../common/widgets/custom_skeleton.dart';
+import '../../../cubit/task_cubit/task_cubit.dart';
+import '../../../cubit/task_cubit/task_cubit_state.dart';
 import '../../../utils/constants/colors.dart';
 
 class CustomCard2 extends StatelessWidget {
@@ -22,37 +26,82 @@ class CustomCard2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: Card(
-        margin: EdgeInsets.only(left: 8),
-        color: color,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image(height: 80, image: AssetImage(imagePath)),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.titleLarge!.copyWith(color: TColors.black),
+      child: BlocBuilder<TaskCubit, TaskCubitState>(
+        builder: (context, state) {
+          if (state is LoadingTaskState) {
+            return CustomSkeleton(
+              child: Card(
+                margin: EdgeInsets.only(left: 8),
+                color: color,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image(height: 80, image: AssetImage(imagePath)),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            title,
+                            style: Theme.of(context).textTheme.titleLarge!
+                                .copyWith(color: TColors.black),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            '$numberTask Tâches',
+                            style: Theme.of(context).textTheme.labelMedium!
+                                .copyWith(color: TColors.black),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 4),
-                  Text(
-                    '$numberTask Tâches',
-                    style: Theme.of(
-                      context,
-                    ).textTheme.labelMedium!.copyWith(color: TColors.black),
-                  ),
-                ],
+                ),
               ),
-            ],
-          ),
-        ),
+            );
+          } else if (state is TaskErrorState) {
+            return Center(
+              child: Text(
+                state.errorMessage!,
+                style: Theme.of(context).textTheme.labelLarge,
+              ),
+            );
+          } else if (state is TaskLoadedState) {
+            return Card(
+              margin: EdgeInsets.only(left: 8),
+              color: color,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image(height: 80, image: AssetImage(imagePath)),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title,
+                          style: Theme.of(context).textTheme.titleLarge!
+                              .copyWith(color: TColors.black),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          '$numberTask Tâches',
+                          style: Theme.of(context).textTheme.labelMedium!
+                              .copyWith(color: TColors.black),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
+          return SizedBox();
+        },
       ),
     );
   }

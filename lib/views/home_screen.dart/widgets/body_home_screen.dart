@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../common/widgets/custom_card_task.dart';
-import '../../../data/fake_data/fake_data.dart';
+import '../../../common/widgets/custom_list_view_builder.dart';
+import '../../../common/widgets/custom_skeleton.dart';
+import '../../../cubit/task_cubit/task_cubit.dart';
+import '../../../cubit/task_cubit/task_cubit_state.dart';
 import '../../../utils/constants/routes.dart';
 
 class BodyHomeScreen extends StatelessWidget {
@@ -27,18 +30,30 @@ class BodyHomeScreen extends StatelessWidget {
             ),
           ],
         ),
-        Expanded(
-          child: ListView.builder(
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(),
-            itemCount: 5,
-            itemBuilder: (context, index) {
-              return CustomCardTask(
-                pathToPop: Routes.home,
-                task: FakeData.tasks[FakeData.tasks.length - index - 1],
+        BlocBuilder<TaskCubit, TaskCubitState>(
+          builder: (context, state) {
+            if (state is LoadingTaskState) {
+              return Expanded(
+                child: CustomSkeleton(
+                  child: CustomListViewBuilder(
+                    tasksList: state.taskPlaceholder,
+                  ),
+                ),
               );
-            },
-          ),
+            } else if (state is TaskErrorState) {
+              return Center(
+                child: Text(
+                  state.errorMessage!,
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
+              );
+            } else if (state is TaskLoadedState) {
+              return Expanded(
+                child: CustomListViewBuilder(tasksList: state.task),
+              );
+            }
+            return SizedBox();
+          },
         ),
       ],
     );
