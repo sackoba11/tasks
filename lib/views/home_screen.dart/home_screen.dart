@@ -1,0 +1,54 @@
+import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
+
+import '../../common/widgets/custom_icon_button.dart';
+import '../../utils/constants/sizes.dart';
+import 'widgets/body_home_screen.dart';
+import 'widgets/header_home_screen.dart';
+import 'widgets/title_app_bar.dart';
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Padding(
+          padding: const EdgeInsets.only(left: TSizes.spaceAppBar),
+          child: TitleAppBarHomeScreen(userName: 'Sacko'),
+        ),
+        actions: [
+          CustomIconButton(icon: Iconsax.notification_copy, onPressed: () {}),
+        ],
+        actionsPadding: const EdgeInsets.only(right: TSizes.spaceAppBar),
+      ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(
+              horizontal: TSizes.defaultSpace,
+            ),
+            physics: const BouncingScrollPhysics(),
+            child: SizedBox(
+              height: constraints.maxHeight,
+              width: constraints.maxWidth,
+              child: Column(
+                children: [
+                  const HeaderHomeScreen(),
+                  const SizedBox(height: TSizes.spaceBtwItems),
+                  Expanded(child: const BodyHomeScreen()),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
