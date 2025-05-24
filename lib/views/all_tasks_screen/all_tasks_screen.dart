@@ -15,7 +15,7 @@ class AllTasksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController searchController = TextEditingController();
-    context.read<TaskCubit>().fetchTasks();
+    context.read<TaskCubit>().getAllTasks();
     return Scaffold(
       appBar: AppBar(title: TitleAppBar(title: 'Toutes les Tâches')),
       body: BodyScreen(

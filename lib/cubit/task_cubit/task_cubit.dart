@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/fake_data/fake_data.dart';
 import '../../models/task.dart';
 import '../../utils/constants/colors.dart';
+import '../../utils/constants/enums.dart';
 import 'task_cubit_state.dart';
 
 class TaskCubit extends Cubit<TaskCubitState> {
@@ -13,8 +14,8 @@ class TaskCubit extends Cubit<TaskCubitState> {
   int tasksPending = 0;
   int tasksInProgress = 0;
   int tasksCompleted = 0;
-  
-  Future<List<Task>> fetchTasks() async {
+
+  Future<List<Task>> getAllTasks() async {
     try {
       emit(LoadingTaskState(taskPlaceholder: placeholderTask()));
 
@@ -31,6 +32,32 @@ class TaskCubit extends Cubit<TaskCubitState> {
       throw Exception(e.toString());
     }
   }
+
+ 
+
+  Future<List<Task>> getTasksPending() async {
+    try {
+      emit(LoadingTaskState(taskPlaceholder: placeholderTask()));
+
+      final tasks = await Future.delayed(Duration(seconds: 2), () {
+        List<Task> tasksPending =
+            taskList
+                .where((task) => task.status == TaskStatus.enAttente)
+                .toList();
+        return tasksPending;
+      });
+      //  await taskService.getAllTasks();
+      emit(TaskLoadedState(task: tasks));
+      return tasks;
+    } catch (e) {
+      print("Try Catch000");
+      print(e);
+      emit(TaskErrorState(errorMessage: e.toString()));
+      throw Exception(e.toString());
+    }
+  }
+
+  
 
   Future<bool> addTasks({required Task task}) async {
     bool result = false;

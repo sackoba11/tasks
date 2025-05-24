@@ -17,7 +17,6 @@ class TaskCompletedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController searchController = TextEditingController();
-
     return Scaffold(
       appBar: AppBar(title: TitleAppBar(title: 'Tâches Terminées')),
       body: BodyScreen(
@@ -42,12 +41,12 @@ class TaskCompletedScreen extends StatelessWidget {
                   ),
                 );
               } else if (state is TaskLoadedState) {
-                List<Task> completedTasks =
+                List<Task> tasksCompleted =
                     state.task
                         .where((task) => task.status == TaskStatus.terminee)
                         .toList();
                 return Expanded(
-                  child: CustomListViewBuilder(tasksList: completedTasks),
+                  child: CustomListViewBuilder(tasksList: tasksCompleted),
                 );
               }
               return SizedBox();

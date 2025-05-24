@@ -5,6 +5,7 @@ import '../../../common/widgets/custom_skeleton.dart';
 import '../../../cubit/task_cubit/task_cubit.dart';
 import '../../../cubit/task_cubit/task_cubit_state.dart';
 import '../../../utils/constants/colors.dart';
+import '../../../utils/constants/enums.dart';
 
 class CustomCard2 extends StatelessWidget {
   const CustomCard2({
@@ -69,6 +70,16 @@ class CustomCard2 extends StatelessWidget {
               ),
             );
           } else if (state is TaskLoadedState) {
+            int tasksPendingLength =
+                state.task
+                    .where((task) => task.status == TaskStatus.enAttente)
+                    .toList()
+                    .length;
+            int tasksCompletedLength =
+                state.task
+                    .where((task) => task.status == TaskStatus.terminee)
+                    .toList()
+                    .length;
             return Card(
               margin: EdgeInsets.only(left: 8),
               color: color,
@@ -89,7 +100,7 @@ class CustomCard2 extends StatelessWidget {
                         ),
                         SizedBox(height: 4),
                         Text(
-                          '$numberTask Tâches',
+                          '${numberTask == 2 ? tasksCompletedLength : tasksPendingLength} Tâches',
                           style: Theme.of(context).textTheme.labelMedium!
                               .copyWith(color: TColors.black),
                         ),

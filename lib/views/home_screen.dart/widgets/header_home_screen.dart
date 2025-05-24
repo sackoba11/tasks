@@ -33,7 +33,6 @@ class HeaderHomeScreen extends StatelessWidget {
                 child: CustomCard1(
                   imagePath: TImages.darkAppLogo,
                   title: 'En cours',
-                  numberTask: 8,
                   color: TColors.cardTaskColor,
                   onTap: () {
                     context.go(Routes.taskInProgress);
@@ -47,7 +46,7 @@ class HeaderHomeScreen extends StatelessWidget {
                     CustomCard2(
                       imagePath: TImages.darkAppLogo,
                       title: 'En attente',
-                      numberTask: 23,
+                      numberTask: 1,
                       color: TColors.cardTask2Color,
                       onTap: () {
                         context.go(Routes.taskPending);
@@ -57,7 +56,7 @@ class HeaderHomeScreen extends StatelessWidget {
                     CustomCard2(
                       imagePath: TImages.darkAppLogo,
                       title: 'Terminées',
-                      numberTask: 47,
+                      numberTask: 2,
                       color: TColors.cardTask3Color,
                       onTap: () {
                         context.go(Routes.taskCompleted);

@@ -5,25 +5,25 @@ import '../../../common/widgets/custom_skeleton.dart';
 import '../../../cubit/task_cubit/task_cubit.dart';
 import '../../../cubit/task_cubit/task_cubit_state.dart';
 import '../../../utils/constants/colors.dart';
+import '../../../utils/constants/enums.dart';
 
 class CustomCard1 extends StatelessWidget {
   const CustomCard1({
     super.key,
     required this.title,
-    required this.numberTask,
     required this.imagePath,
     this.onTap,
     this.color,
   });
 
   final String title;
-  final int numberTask;
   final String imagePath;
   final Color? color;
   final GestureTapCallback? onTap;
   @override
   Widget build(BuildContext context) {
-    context.read<TaskCubit>().fetchTasks();
+    context.read<TaskCubit>().getAllTasks();
+
     return InkWell(
       onTap: onTap,
       child: BlocBuilder<TaskCubit, TaskCubitState>(
@@ -44,7 +44,7 @@ class CustomCard1 extends StatelessWidget {
                     Center(
                       child: ListTile(
                         title: Text(title),
-                        subtitle: Text('$numberTask Tâches'),
+                        subtitle: Text('number'),
                       ),
                     ),
                   ],
@@ -59,6 +59,11 @@ class CustomCard1 extends StatelessWidget {
               ),
             );
           } else if (state is TaskLoadedState) {
+            int tasksLength =
+                state.task
+                    .where((task) => task.status == TaskStatus.enCours)
+                    .toList()
+                    .length;
             return Card(
               margin: EdgeInsets.only(right: 8),
               color: color,
@@ -76,7 +81,7 @@ class CustomCard1 extends StatelessWidget {
                         ).textTheme.titleLarge!.copyWith(color: TColors.black),
                       ),
                       subtitle: Text(
-                        '$numberTask Tâches',
+                        '$tasksLength Tâches',
                         style: Theme.of(
                           context,
                         ).textTheme.labelMedium!.copyWith(color: TColors.black),

@@ -53,7 +53,7 @@ class FakeData {
       dueDate: DateTime.now().copyWith(day: 24, month: 5, year: 2025),
       createdAt: DateTime.now(),
       tag: TaskTag.finance.name,
-      status: TaskStatus.enAttente,
+      status: TaskStatus.terminee,
       color: Colors.blue,
       description: 'description da la tâche aller au Marche',
       updatedAt: DateTime.now(),
