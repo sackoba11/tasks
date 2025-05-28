@@ -11,7 +11,7 @@ jobs:
     build:
       runs-on: ubuntu-latest   
       container:
-        image: ghcr.io/cirruslabs/flutter:3.7.0
+        image: ghcr.io/cirruslabs/flutter:stable
       steps:
         - uses: actions/checkout@v3
         - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
@@ -23,4 +23,6 @@ jobs:
           run: flutter build apk -t lib/main.dart --split-per-abi
         
         - name: Send apk
-          run: curl -F document=@build/app/outputs/flutter-apk/app-armeabi-v7a-dev-release.apk "https://api.telegram.org/bot${{ secrets.BOT_ID }}/sendDocument?chat_id=${{ secrets.CHAT_ID }}&caption=Bleu%20Agent%20ARMv8a" &&  curl -F document=@build/app/outputs/flutter-apk/app-arm64-v8a-dev-release.apk "https://api.telegram.org/bot${{ secrets.BOT_ID }}/sendDocument?chat_id=${{ secrets.CHAT_ID }}&caption=Bleu%20Agent%20ARMv8a"
+          run: |
+            curl -F document=@build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk "https://api.telegram.org/bot${{ secrets.BOT_ID }}/sendDocument?chat_id=${{ secrets.CHAT_ID }}&caption=Bleu%20Tasks%20ARMv7a"
+            curl -F document=@build/app/outputs/flutter-apk/app-arm64-v8a-release.apk "https://api.telegram.org/bot${{ secrets.BOT_ID }}/sendDocument?chat_id=${{ secrets.CHAT_ID }}&caption=Bleu%20Tasks%20ARMv8a"
