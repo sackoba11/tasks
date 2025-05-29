@@ -11,8 +11,10 @@ jobs:
           to: ${{ secrets.CHAT_ID }}
           token: ${{ secrets.BOT_ID }}
           message: |
-            ${{ github.actor }} created commit:
-            Commit message: ${{ github.event.commits[0].message }}
+            Commit : 
+            ${{ github.event.commits[0].message }}
+            
+            Commit by:${{ github.actor }}
             
             Repository: ${{ github.repository }}
             
