@@ -4,8 +4,8 @@ on:
   push:
     tags: 
       - 'agent-dev-*.*.*'
-    # branches:
-    #   - dev
+    branches:
+      - dev
 
 jobs:              
     build:
