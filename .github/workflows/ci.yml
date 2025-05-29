@@ -9,6 +9,7 @@ on:
 jobs:              
     message:
       name: send telegram message on push
+      if: github.event_name == 'push'
       runs-on: ubuntu-latest
       
       steps:
