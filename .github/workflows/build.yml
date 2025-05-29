@@ -1,20 +1,22 @@
 name: Build Bleu Agent Dev APKs
 
-on: 
-  push:
-    tags: 
-      - 'agent-dev-*.*.*'
-    branches:
-      - dev
-
+on: [push]
 jobs:              
     build:
       runs-on: ubuntu-latest   
-    #   container:
-    #     image: ghcr.io/cirruslabs/flutter:stable
       steps:
-        - name: Send Message
-          run: curl -X POST "https://api.telegram.org/bot${{ secrets.BOT_ID }}/sendMessage" -d "chat_id=${{ secrets.CHAT_ID }}&text=Nouveau commit ${{ github.ref_name }} par @${{ github.actor }}"
+      - name: send telegram message on push
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.CHAT_ID }}
+          token: ${{ secrets.BOT_ID }}
+          message: |
+            ${{ github.actor }} created commit:
+            Commit message: ${{ github.event.commits[0].message }}
+            
+            Repository: ${{ github.repository }}
+            
+            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
 
         # - uses: actions/checkout@v3
         # - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
