@@ -22,7 +22,7 @@ class CustomCard1 extends StatelessWidget {
   final GestureTapCallback? onTap;
   @override
   Widget build(BuildContext context) {
-    context.read<TaskCubit>().getAllTasks();
+    
 
     return InkWell(
       onTap: onTap,

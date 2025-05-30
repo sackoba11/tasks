@@ -10,6 +10,7 @@ import '../../cubit/task_cubit/task_cubit.dart';
 import '../../cubit/task_cubit/task_cubit_state.dart';
 import '../../models/task.dart';
 import '../../utils/constants/enums.dart';
+import '../../utils/constants/routes.dart';
 
 class TasksPendingScreen extends StatelessWidget {
   const TasksPendingScreen({super.key});
@@ -17,6 +18,7 @@ class TasksPendingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController searchController = TextEditingController();
+    context.read<TaskCubit>().getAllTasks();
     return Scaffold(
       appBar: AppBar(title: TitleAppBar(title: 'Tâches en attente')),
       body: BodyScreen(
@@ -29,6 +31,7 @@ class TasksPendingScreen extends StatelessWidget {
                 return Expanded(
                   child: CustomSkeleton(
                     child: CustomListViewBuilder(
+                      pathToPop: Routes.taskPending,
                       tasksList: state.taskPlaceholder,
                     ),
                   ),
@@ -46,7 +49,10 @@ class TasksPendingScreen extends StatelessWidget {
                         .where((task) => task.status == TaskStatus.enAttente)
                         .toList();
                 return Expanded(
-                  child: CustomListViewBuilder(tasksList: tasksPending),
+                  child: CustomListViewBuilder(
+                    tasksList: tasksPending,
+                    pathToPop: Routes.taskPending,
+                  ),
                 );
               }
               return SizedBox();

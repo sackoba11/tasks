@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 
 import '../../models/task.dart';
-import '../../utils/constants/routes.dart';
 import 'custom_card_task.dart';
 
 class CustomListViewBuilder extends StatelessWidget {
-  const CustomListViewBuilder({super.key, required this.tasksList});
+  const CustomListViewBuilder({
+    super.key,
+    required this.tasksList,
+    required this.pathToPop,
+  });
 
   final List<Task> tasksList;
+  final String pathToPop;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +24,7 @@ class CustomListViewBuilder extends StatelessWidget {
           itemCount: tasksList.length,
           itemBuilder: (context, index) {
             return CustomCardTask(
-              pathToPop: Routes.taskPending,
+              pathToPop: pathToPop,
               task: tasksList[tasksList.length - index - 1],
             );
           },

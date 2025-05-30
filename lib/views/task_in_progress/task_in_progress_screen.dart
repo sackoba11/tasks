@@ -10,6 +10,7 @@ import '../../cubit/task_cubit/task_cubit.dart';
 import '../../cubit/task_cubit/task_cubit_state.dart';
 import '../../models/task.dart';
 import '../../utils/constants/enums.dart';
+import '../../utils/constants/routes.dart';
 
 class TaskInProgressScreen extends StatelessWidget {
   const TaskInProgressScreen({super.key});
@@ -17,6 +18,7 @@ class TaskInProgressScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController searchController = TextEditingController();
+    context.read<TaskCubit>().getAllTasks();
     return Scaffold(
       appBar: AppBar(title: TitleAppBar(title: 'Tâches en cours')),
       body: BodyScreen(
@@ -30,6 +32,7 @@ class TaskInProgressScreen extends StatelessWidget {
                   child: CustomSkeleton(
                     child: CustomListViewBuilder(
                       tasksList: state.taskPlaceholder,
+                      pathToPop: Routes.taskInProgress,
                     ),
                   ),
                 );
@@ -46,7 +49,10 @@ class TaskInProgressScreen extends StatelessWidget {
                         .where((task) => task.status == TaskStatus.enCours)
                         .toList();
                 return Expanded(
-                  child: CustomListViewBuilder(tasksList: inProgressTasks),
+                  child: CustomListViewBuilder(
+                    tasksList: inProgressTasks,
+                    pathToPop: Routes.taskInProgress,
+                  ),
                 );
               }
               return SizedBox();

@@ -55,106 +55,108 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               horizontal: TSizes.defaultSpace,
             ),
             physics: const BouncingScrollPhysics(),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const SizedBox(height: TSizes.spaceBtwItems),
-                CustomTextFormField(
-                  labelText: 'Titre',
-                  hintText: 'Entrez le titre de la tâche',
-                  controller: titleController,
-                ),
-                const SizedBox(height: TSizes.spaceBtwItems),
-                CustomTextFormField(
-                  labelText: 'Date de début',
-                  hintText: 'Sélectionnez la date de début 👉',
-                  controller: createdAtController,
-                  keyboardType: TextInputType.datetime,
-                  suffixIcon: DateIconButton(
+            child: Form(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const SizedBox(height: TSizes.spaceBtwItems),
+                  CustomTextFormField(
+                    labelText: 'Titre',
+                    hintText: 'Entrez le titre de la tâche',
+                    controller: titleController,
+                  ),
+                  const SizedBox(height: TSizes.spaceBtwItems),
+                  CustomTextFormField(
+                    labelText: 'Date de début',
+                    hintText: 'Sélectionnez la date de début 👉',
                     controller: createdAtController,
-                    dateTimeController: createdAtDateTime,
-                  ),
-                ),
-                const SizedBox(height: TSizes.spaceBtwItems),
-                CustomTextFormField(
-                  labelText: 'Date de fin',
-                  hintText: 'Sélectionnez la date de fin 👉',
-                  controller: dueDateController,
-                  keyboardType: TextInputType.datetime,
-                  suffixIcon: DateIconButton(
-                    controller: dueDateController,
-                    dateTimeController: dueDateTime,
-                  ),
-                ),
-                const SizedBox(height: TSizes.spaceBtwItems),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: DropdownButtonFormField(
-                        items:
-                            TaskTag.values.map((e) {
-                              String name = Helpers.formatStatus(e.name);
-                              return DropdownMenuItem(
-                                value: e.name,
-                                child: Text(name),
-                              );
-                            }).toList(),
-                        // value: TaskTag.values[0].name,
-                        onChanged: (value) {
-                          tagController.text = value.toString();
-                        },
-                        decoration: InputDecoration(labelText: 'Tag'),
-                      ),
+                    keyboardType: TextInputType.datetime,
+                    suffixIcon: DateIconButton(
+                      controller: createdAtController,
+                      dateTimeController: createdAtDateTime,
                     ),
-                    SizedBox(width: TSizes.spaceBtwInputFields),
-                    Expanded(
-                      flex: 2,
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0),
-                            child: Text(
-                              'Couleur tâche',
-                              style: Theme.of(
-                                context,
-                              ).textTheme.bodySmall!.copyWith(fontSize: 10),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              colorPickerDialog();
-                            },
-                            child: Container(
-                              height: 45,
-                              width: 45,
-                              decoration: BoxDecoration(
-                                color: dialogPickerColor,
-                                borderRadius: BorderRadius.circular(40),
+                  ),
+                  const SizedBox(height: TSizes.spaceBtwItems),
+                  CustomTextFormField(
+                    labelText: 'Date de fin',
+                    hintText: 'Sélectionnez la date de fin 👉',
+                    controller: dueDateController,
+                    keyboardType: TextInputType.datetime,
+                    suffixIcon: DateIconButton(
+                      controller: dueDateController,
+                      dateTimeController: dueDateTime,
+                    ),
+                  ),
+                  const SizedBox(height: TSizes.spaceBtwItems),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: DropdownButtonFormField(
+                          items:
+                              TaskTag.values.map((e) {
+                                String name = Helpers.formatStatus(e.name);
+                                return DropdownMenuItem(
+                                  value: e.name,
+                                  child: Text(name),
+                                );
+                              }).toList(),
+                          // value: TaskTag.values[0].name,
+                          onChanged: (value) {
+                            tagController.text = value.toString();
+                          },
+                          decoration: InputDecoration(labelText: 'Tag'),
+                        ),
+                      ),
+                      SizedBox(width: TSizes.spaceBtwInputFields),
+                      Expanded(
+                        flex: 2,
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: Text(
+                                'Couleur tâche',
+                                style: Theme.of(
+                                  context,
+                                ).textTheme.bodySmall!.copyWith(fontSize: 10),
                               ),
                             ),
-                          ),
-                        ],
+                            InkWell(
+                              onTap: () {
+                                colorPickerDialog();
+                              },
+                              child: Container(
+                                height: 45,
+                                width: 45,
+                                decoration: BoxDecoration(
+                                  color: dialogPickerColor,
+                                  borderRadius: BorderRadius.circular(40),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: TSizes.spaceBtwItems),
-                CustomTextFormField(
-                  labelText: 'Description',
-                  hintText: 'Entrez la description de la tâche',
-                  controller: descriptionController,
-                  maxLines: 5,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  keyboardType: TextInputType.multiline,
-                ),
+                    ],
+                  ),
+                  const SizedBox(height: TSizes.spaceBtwItems),
+                  CustomTextFormField(
+                    labelText: 'Description',
+                    hintText: 'Entrez la description de la tâche',
+                    controller: descriptionController,
+                    maxLines: 5,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    keyboardType: TextInputType.multiline,
+                  ),
 
-                CustomStepper(subTask: subTask),
-                const SizedBox(height: TSizes.spaceBtwSections),
-                const SizedBox(height: TSizes.spaceBtwSections),
-                const SizedBox(height: TSizes.spaceBtwSections),
-              ],
+                  CustomStepper(subTask: subTask),
+                  const SizedBox(height: TSizes.spaceBtwSections),
+                  const SizedBox(height: TSizes.spaceBtwSections),
+                  const SizedBox(height: TSizes.spaceBtwSections),
+                ],
+              ),
             ),
           ),
 
@@ -164,8 +166,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             right: TSizes.defaultSpace,
             child: CustomElevatedButton(
               title: 'Ajouter la tâche',
-              onPressed: () {
-                BlocProvider.of<TaskCubit>(context).addTasks(
+              onPressed: () async {
+                await context.read<TaskCubit>().addTasks(
                   task: Task(
                     id: '${FakeData.tasks.length + 1}',
                     title: titleController.text,

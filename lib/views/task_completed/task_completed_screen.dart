@@ -10,6 +10,7 @@ import '../../cubit/task_cubit/task_cubit.dart';
 import '../../cubit/task_cubit/task_cubit_state.dart';
 import '../../models/task.dart';
 import '../../utils/constants/enums.dart';
+import '../../utils/constants/routes.dart';
 
 class TaskCompletedScreen extends StatelessWidget {
   const TaskCompletedScreen({super.key});
@@ -17,6 +18,7 @@ class TaskCompletedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController searchController = TextEditingController();
+    context.read<TaskCubit>().getAllTasks();
     return Scaffold(
       appBar: AppBar(title: TitleAppBar(title: 'Tâches Terminées')),
       body: BodyScreen(
@@ -29,6 +31,7 @@ class TaskCompletedScreen extends StatelessWidget {
                 return Expanded(
                   child: CustomSkeleton(
                     child: CustomListViewBuilder(
+                      pathToPop: Routes.taskCompleted,
                       tasksList: state.taskPlaceholder,
                     ),
                   ),
@@ -46,7 +49,10 @@ class TaskCompletedScreen extends StatelessWidget {
                         .where((task) => task.status == TaskStatus.terminee)
                         .toList();
                 return Expanded(
-                  child: CustomListViewBuilder(tasksList: tasksCompleted),
+                  child: CustomListViewBuilder(
+                    tasksList: tasksCompleted,
+                    pathToPop: Routes.taskCompleted,
+                  ),
                 );
               }
               return SizedBox();

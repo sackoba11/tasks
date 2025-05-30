@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tasks/utils/constants/routes.dart';
 
 import '../../common/widgets/body_screen.dart';
 import '../../common/widgets/custom_list_view_builder.dart';
@@ -28,6 +29,7 @@ class AllTasksScreen extends StatelessWidget {
                 return Expanded(
                   child: CustomSkeleton(
                     child: CustomListViewBuilder(
+                      pathToPop: Routes.allTasks,
                       tasksList: state.taskPlaceholder,
                     ),
                   ),
@@ -41,7 +43,10 @@ class AllTasksScreen extends StatelessWidget {
                 );
               } else if (state is TaskLoadedState) {
                 return Expanded(
-                  child: CustomListViewBuilder(tasksList: state.task),
+                  child: CustomListViewBuilder(
+                    tasksList: state.task,
+                    pathToPop: Routes.allTasks,
+                  ),
                 );
               }
               return SizedBox();
