@@ -7,7 +7,6 @@ import '../../utils/constants/colors.dart';
 import '../../utils/constants/routes.dart';
 import '../../utils/constants/sizes.dart';
 
-
 class CustomCardTask extends StatelessWidget {
   const CustomCardTask({
     super.key,
@@ -98,7 +97,7 @@ class CustomCardTask extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                         Text(
-                          '${task.dueDate.day}-${task.dueDate.month}-${task.dueDate.year}',
+                          Helpers.formatCardDate(task.createdAt),
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ],
@@ -117,6 +116,4 @@ class CustomCardTask extends StatelessWidget {
       ),
     );
   }
-
- 
 }

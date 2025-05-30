@@ -18,11 +18,6 @@ class LoadingTaskState extends TaskCubitState {
   List<Object?> get props => [taskPlaceholder];
 }
 
-class TaskAddedState extends TaskCubitState {
-  @override
-  List<Object?> get props => [];
-}
-
 class TaskLoadedState extends TaskCubitState {
   final List<Task> task;
   TaskLoadedState({required this.task});

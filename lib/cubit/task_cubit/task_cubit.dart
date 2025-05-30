@@ -39,7 +39,6 @@ class TaskCubit extends Cubit<TaskCubitState> {
         taskList.add(task);
         return true;
       });
-      emit(TaskAddedState());
       emit(TaskLoadedState(task: taskList));
       return result;
     } catch (e) {

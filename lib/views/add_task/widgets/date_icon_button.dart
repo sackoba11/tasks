@@ -3,14 +3,14 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 // ignore: must_be_immutable
 class DateIconButton extends StatelessWidget {
-  DateIconButton({
+  const DateIconButton({
     super.key,
     required this.controller,
-    this.dateTimeController,
+    required this.dateTimeController,
   });
 
   final TextEditingController controller;
-  DateTime? dateTimeController;
+  final TextEditingController dateTimeController;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,8 @@ class DateIconButton extends StatelessWidget {
         if (pickedDate != null) {
           controller.text =
               '${pickedDate.day}/${pickedDate.month}/${pickedDate.year}';
-          dateTimeController = pickedDate;
+          dateTimeController.text =
+              pickedDate.millisecondsSinceEpoch.toString();
         }
       },
     );

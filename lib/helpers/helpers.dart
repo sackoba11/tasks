@@ -17,6 +17,12 @@ class Helpers {
         '${date.year}';
   }
 
+  static String formatCardDate(DateTime date) {
+    return ' ${date.day.toString().padLeft(2, '0')} '
+        '${TTexts.month[date.month - 1]} ';
+    // '${date.year}';
+  }
+
   static String formatHour(DateTime date) {
     return '${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}';
   }
