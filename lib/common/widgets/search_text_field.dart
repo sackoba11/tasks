@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../helpers/helpers.dart';
 import '../../utils/constants/colors.dart';
 import '../../utils/constants/enums.dart';
 import '../../utils/constants/sizes.dart';
+import '../../utils/formatters/formatter.dart';
 
 class SearchTextField extends StatelessWidget {
   const SearchTextField({super.key, required this.searchController});
@@ -29,7 +29,7 @@ class SearchTextField extends StatelessWidget {
             },
             itemBuilder: (context) {
               return TaskTag.values.map((e) {
-                String name = Helpers.formatStatus(e.name);
+                String name = Formatter.formatStatus(e.name);
                 return PopupMenuItem<String>(value: name, child: Text(name));
               }).toList();
             },

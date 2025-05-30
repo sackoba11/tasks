@@ -35,13 +35,11 @@ class TTextFormFieldTheme {
         width: 1,
       ),
     ),
-    errorBorder: const OutlineInputBorder().copyWith(
-      borderRadius: BorderRadius.circular(14.0),
+    errorBorder: const UnderlineInputBorder().copyWith(
       borderSide: const BorderSide(color: Colors.red, width: 1.0),
     ),
-    focusedErrorBorder: const OutlineInputBorder().copyWith(
-      borderRadius: BorderRadius.circular(14.0),
-      borderSide: const BorderSide(color: Colors.orange, width: 2.0),
+    focusedErrorBorder: const UnderlineInputBorder().copyWith(
+      borderSide: const BorderSide(color: Colors.orange, width: 1.0),
     ),
   );
 
@@ -74,13 +72,11 @@ class TTextFormFieldTheme {
         width: 1,
       ),
     ),
-    errorBorder: const OutlineInputBorder().copyWith(
-      borderRadius: BorderRadius.circular(14.0),
+    errorBorder: const UnderlineInputBorder().copyWith(
       borderSide: const BorderSide(color: Colors.red, width: 1.0),
     ),
-    focusedErrorBorder: const OutlineInputBorder().copyWith(
-      borderRadius: BorderRadius.circular(14.0),
-      borderSide: const BorderSide(color: Colors.orange, width: 2.0),
+    focusedErrorBorder: const UnderlineInputBorder().copyWith(
+      borderSide: const BorderSide(color: Colors.orange, width: 1.0),
     ),
   );
 }

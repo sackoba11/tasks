@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 
-import '../../../helpers/helpers.dart';
 import '../../../utils/constants/enums.dart';
+import '../../../utils/formatters/formatter.dart';
 
 class CustomDropDownButton extends StatelessWidget {
-  const CustomDropDownButton({super.key, required this.tagController});
+  const CustomDropDownButton({
+    super.key,
+    required this.tagController,
+    this.validator,
+  });
   final TextEditingController tagController;
+  final FormFieldValidator<String>? validator;
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField(
       items:
           TaskTag.values.map((e) {
-            String name = Helpers.formatStatus(e.name);
+            String name = Formatter.formatStatus(e.name);
             return DropdownMenuItem(value: e.name, child: Text(name));
           }).toList(),
       // value: TaskTag.values[0].name,
@@ -19,6 +24,7 @@ class CustomDropDownButton extends StatelessWidget {
         tagController.text = value.toString();
       },
       decoration: InputDecoration(labelText: 'Tag'),
+      validator: validator,
     );
   }
 }

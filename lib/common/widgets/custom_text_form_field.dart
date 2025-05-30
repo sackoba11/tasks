@@ -12,6 +12,7 @@ class CustomTextFormField extends StatelessWidget {
     this.enable = true,
     this.suffixIcon,
     this.prefixIcon,
+    this.validator,
   });
   final String labelText;
   final String hintText;
@@ -22,6 +23,7 @@ class CustomTextFormField extends StatelessWidget {
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final bool enable;
+  final FormFieldValidator<String>? validator;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -36,6 +38,7 @@ class CustomTextFormField extends StatelessWidget {
           FocusScope.of(context).unfocus();
         }
       },
+      validator: validator,
       decoration: InputDecoration(
         labelText: labelText,
         hintText: hintText,
@@ -45,4 +48,3 @@ class CustomTextFormField extends StatelessWidget {
     );
   }
 }
-
