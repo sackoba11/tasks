@@ -22,7 +22,15 @@ class BodyScreen extends StatelessWidget {
   final String taskscanceledLength;
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, String>> stats = [
+    final List<IconData> icons = [
+      Icons.all_inbox_sharp,
+      Icons.calendar_month_outlined,
+      Icons.pending_outlined,
+      Icons.done_all_sharp,
+      Icons.assignment_late_outlined,
+      Icons.cancel_outlined,
+    ];
+    final List<Map<String, dynamic>> stats = [
       {'Total des tâches :': alltaskLength},
       {'Tâches en cours :': tasksInProgressLength},
       {'Tâches en Attente :': tasksPendingLength},
@@ -36,32 +44,27 @@ class BodyScreen extends StatelessWidget {
         Text('Général', style: Theme.of(context).textTheme.bodySmall),
         SizedBox(height: TSizes.spaceBtwItems),
         Column(
-          children:
-              stats
-                  .map(
-                    (e) => Column(
-                      children: [
-                        CustomTextFormField(
-                          labelText: e.keys.first,
-                          style: Theme.of(context).textTheme.titleMedium,
-                          hintText: '',
-                          enable: false,
-                          prefixIcon: Icon(Icons.all_inbox_sharp),
-                          suffixIcon: Padding(
-                            padding: EdgeInsets.only(
-                              top: TSizes.defaultSpace - 8,
-                            ),
-                            child: Text(
-                              e.values.first,
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: TSizes.spaceBtwItems),
-                      ],
+          children: List.generate(stats.length, (index) {
+            return Column(
+              children: [
+                CustomTextFormField(
+                  labelText: stats[index].keys.first,
+                  style: Theme.of(context).textTheme.titleMedium,
+                  hintText: '',
+                  enable: false,
+                  prefixIcon: Icon(icons[index]),
+                  suffixIcon: Padding(
+                    padding: EdgeInsets.only(top: TSizes.defaultSpace - 8),
+                    child: Text(
+                      stats[index].values.first,
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
-                  )
-                  .toList(),
+                  ),
+                ),
+                SizedBox(height: TSizes.spaceBtwItems),
+              ],
+            );
+          }),
         ),
       ],
     );
