@@ -51,6 +51,7 @@ class BodyHomeScreen extends StatelessWidget {
             } else if (state is TaskLoadedState) {
               return Expanded(
                 child: CustomListViewBuilder(
+                  itemCount: 10,
                   tasksList: state.task,
                   pathToPop: Routes.home,
                 ),

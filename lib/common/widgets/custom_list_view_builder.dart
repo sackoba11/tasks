@@ -8,10 +8,12 @@ class CustomListViewBuilder extends StatelessWidget {
     super.key,
     required this.tasksList,
     required this.pathToPop,
+    this.itemCount,
   });
 
   final List<Task> tasksList;
   final String pathToPop;
+  final int? itemCount;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class CustomListViewBuilder extends StatelessWidget {
 
           physics: const BouncingScrollPhysics(),
 
-          itemCount: tasksList.length,
+          itemCount: itemCount ?? tasksList.length,
           itemBuilder: (context, index) {
             return CustomCardTask(
               pathToPop: pathToPop,

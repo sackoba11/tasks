@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'cubit/task_completed_cubit/task_completed_cubit.dart';
 import 'cubit/task_cubit/task_cubit.dart';
+import 'cubit/task_in_progress_cubit/task_in_progress_cubit.dart';
+import 'cubit/task_pending_cubit/task_pending_cubit.dart';
 import 'root.dart';
 
 void main() {
-  runApp(BlocProvider(create: (context) => TaskCubit(), child: const Root()));
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => TaskCubit()),
+        BlocProvider(create: (context) => TaskCompletedCubit()),
+        BlocProvider(create: (context) => TaskInProgressCubit()),
+        BlocProvider(create: (context) => TaskPendingCubit()),
+      ],
+      child: const Root(),
+    ),
+  );
 }

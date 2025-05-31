@@ -22,8 +22,6 @@ class CustomCard1 extends StatelessWidget {
   final GestureTapCallback? onTap;
   @override
   Widget build(BuildContext context) {
-    
-
     return InkWell(
       onTap: onTap,
       child: BlocBuilder<TaskCubit, TaskCubitState>(
