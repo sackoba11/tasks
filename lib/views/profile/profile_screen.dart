@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../common/widgets/custom_text_form_field.dart';
+import '../../cubit/task_cubit/task_cubit.dart';
+import '../../cubit/task_cubit/task_cubit_state.dart';
+import '../../utils/constants/enums.dart';
 import '../../utils/constants/image_strings.dart';
 import '../../utils/constants/sizes.dart';
+import 'widgets/body_screen.dart';
+import 'widgets/header_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -30,105 +34,50 @@ class ProfileScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: TSizes.spaceBtwSections),
-            Center(
-              child: CircleAvatar(
-                radius: 50,
-                backgroundColor: Colors.transparent,
-                backgroundImage: AssetImage(TImages.user),
-              ),
-            ),
-            SizedBox(height: TSizes.spaceBtwItems),
-            Center(
-              child: Text(
-                'Sacko Badra',
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-            ),
+            HeaderScreen(title: 'Sacko Badra', image: TImages.user),
             SizedBox(height: TSizes.spaceBtwSections),
-            Text('Général', style: Theme.of(context).textTheme.bodySmall),
-            SizedBox(height: TSizes.spaceBtwItems),
-            Row(
-              children: [
-                Expanded(
-                  child: CustomTextFormField(
-                    labelText: 'Total des tâches :',
-                    style: Theme.of(context).textTheme.titleMedium,
-                    hintText: '',
-                    enable: false,
-                    prefixIcon: Icon(Icons.all_inbox_sharp),
-                    suffixIcon: Padding(
-                      padding: EdgeInsets.only(top: TSizes.defaultSpace - 8),
-                      child: Text(
-                        '140',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: TSizes.spaceBtwItems),
-            Row(
-              children: [
-                Expanded(
-                  child: CustomTextFormField(
-                    labelText: 'Tâches en cours :',
-                    style: Theme.of(context).textTheme.titleMedium,
-                    hintText: '',
-                    enable: false,
-                    prefixIcon: Icon(Iconsax.calendar_1_copy),
-                    suffixIcon: Padding(
-                      padding: EdgeInsets.only(top: TSizes.defaultSpace - 8),
-                      child: Text(
-                        '30',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: TSizes.spaceBtwItems),
-            Row(
-              children: [
-                Expanded(
-                  child: CustomTextFormField(
-                    labelText: 'Tâches en Attente :',
-                    style: Theme.of(context).textTheme.titleMedium,
-                    hintText: '',
-                    enable: false,
-                    prefixIcon: Icon(Icons.pending_outlined),
-                    suffixIcon: Padding(
-                      padding: EdgeInsets.only(top: TSizes.defaultSpace - 8),
-                      child: Text(
-                        '40',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: TSizes.spaceBtwItems),
-            Row(
-              children: [
-                Expanded(
-                  child: CustomTextFormField(
-                    labelText: 'Tâches Terminées :',
-                    style: Theme.of(context).textTheme.titleMedium,
-                    hintText: '',
-                    enable: false,
-                    prefixIcon: Icon(Icons.done_all_sharp),
-                    suffixIcon: Padding(
-                      padding: EdgeInsets.only(top: TSizes.defaultSpace - 8),
-                      child: Text(
-                        '70',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+            BlocBuilder<TaskCubit, TaskCubitState>(
+              builder: (context, state) {
+                if (state is LoadingTaskState || state is TaskCubitInitial) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                if (state is TaskLoadedState) {
+                  int tasksPendingLength =
+                      state.task
+                          .where((task) => task.status == TaskStatus.enAttente)
+                          .toList()
+                          .length;
+                  int tasksCompletedLength =
+                      state.task
+                          .where((task) => task.status == TaskStatus.terminee)
+                          .toList()
+                          .length;
+                  int tasksInProgressLength =
+                      state.task
+                          .where((task) => task.status == TaskStatus.enCours)
+                          .toList()
+                          .length;
+                  int tasksOverdueLength =
+                      state.task
+                          .where((task) => task.status == TaskStatus.enRetard)
+                          .toList()
+                          .length;
+                  int taskscanceledLength =
+                      state.task
+                          .where((task) => task.status == TaskStatus.annulee)
+                          .toList()
+                          .length;
+                  return BodyScreen(
+                    alltaskLength: state.task.length.toString(),
+                    tasksInProgressLength: tasksInProgressLength.toString(),
+                    tasksCompletedLength: tasksCompletedLength.toString(),
+                    tasksOverdueLength: tasksOverdueLength.toString(),
+                    tasksPendingLength: tasksPendingLength.toString(),
+                    taskscanceledLength: taskscanceledLength.toString(),
+                  );
+                }
+                return SizedBox();
+              },
             ),
           ],
         ),
