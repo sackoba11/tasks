@@ -11,7 +11,7 @@ class BodyScreen extends StatelessWidget {
     required this.tasksPendingLength,
     required this.tasksCompletedLength,
     required this.tasksOverdueLength,
-    required this.taskscanceledLength,
+    required this.taskscanceledLength, 
   });
 
   final String alltaskLength;

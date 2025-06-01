@@ -21,6 +21,7 @@ class DetailsTask extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
     return PopScope(
+      canPop: false,
       onPopInvokedWithResult: (didPop, result) => context.go(pathToPop!),
       child: Scaffold(
         backgroundColor: TColors.cardTaskColor,
