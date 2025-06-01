@@ -44,10 +44,15 @@ class CustomCard2 extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            title,
-                            style: Theme.of(context).textTheme.titleLarge!
-                                .copyWith(color: TColors.black),
+                          SizedBox(
+                            width: 120,
+                            child: Text(
+                              softWrap: true,
+                              title,
+                              style: Theme.of(context).textTheme.titleLarge!
+                                  .copyWith(color: TColors.black),
+                              overflow: TextOverflow.clip,
+                            ),
                           ),
                           SizedBox(height: 4),
                           Text(
@@ -70,14 +75,14 @@ class CustomCard2 extends StatelessWidget {
               ),
             );
           } else if (state is TaskLoadedState) {
-            int tasksPendingLength =
+            int tasksCanceledLength =
                 state.task
-                    .where((task) => task.status == TaskStatus.enAttente)
+                    .where((task) => task.status == TaskStatus.annulee)
                     .toList()
                     .length;
-            int tasksCompletedLength =
+            int tasksOverdueLength =
                 state.task
-                    .where((task) => task.status == TaskStatus.terminee)
+                    .where((task) => task.status == TaskStatus.enRetard)
                     .toList()
                     .length;
             return Card(
@@ -93,14 +98,18 @@ class CustomCard2 extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          title,
-                          style: Theme.of(context).textTheme.titleLarge!
-                              .copyWith(color: TColors.black),
+                        SizedBox(
+                          width: 120,
+                          child: Text(
+                            title,
+                            style: Theme.of(context).textTheme.titleLarge!
+                                .copyWith(color: TColors.black),
+                            overflow: TextOverflow.clip,
+                          ),
                         ),
                         SizedBox(height: 4),
                         Text(
-                          '${numberTask == 2 ? tasksCompletedLength : tasksPendingLength} Tâches',
+                          '${numberTask == 2 ? tasksOverdueLength : tasksCanceledLength} Tâches',
                           style: Theme.of(context).textTheme.labelMedium!
                               .copyWith(color: TColors.black),
                         ),

@@ -11,6 +11,8 @@ import 'views/profile/profile_screen.dart';
 import 'views/task_completed/task_completed_screen.dart';
 import 'views/task_in_progress/task_in_progress_screen.dart';
 import 'views/base_screen.dart';
+import 'views/tasks_canceled_screen/tasks_canceled_screen.dart';
+import 'views/tasks_overdue_screen/tasks_overdue_screen.dart';
 import 'views/tasks_pending_screen/tasks_pending_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -42,6 +44,14 @@ class Routers {
                   GoRoute(
                     path: Routes.taskPending,
                     builder: (context, state) => TasksPendingScreen(),
+                  ),
+                  GoRoute(
+                    path: Routes.taskCanceled,
+                    builder: (context, state) => TasksCanceledScreen(),
+                  ),
+                  GoRoute(
+                    path: Routes.taskOverdue,
+                    builder: (context, state) => TasksOverdueScreen(),
                   ),
                 ],
               ),

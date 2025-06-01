@@ -59,7 +59,7 @@ class CustomCard1 extends StatelessWidget {
           } else if (state is TaskLoadedState) {
             int tasksLength =
                 state.task
-                    .where((task) => task.status == TaskStatus.enCours)
+                    .where((task) => task.status == TaskStatus.enAttente)
                     .toList()
                     .length;
             return Card(
