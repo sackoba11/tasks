@@ -34,6 +34,10 @@ class CustomPopups {
     required BuildContext context,
     required String title,
     required String message,
+    String? actionText1,
+    String? actionText2,
+    void Function()? onPressed1,
+    void Function()? onPressed2,
   }) {
     showDialog(
       context: context,
@@ -42,10 +46,24 @@ class CustomPopups {
           title: Text(title),
           content: Text(message),
           actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text('OK', style: Theme.of(context).textTheme.bodyLarge),
-            ),
+            if (actionText2 != null)
+              TextButton(
+                onPressed: onPressed2,
+                child: Text(
+                  actionText2,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              ),
+            if (actionText1 != null)
+              TextButton(
+                onPressed: onPressed1,
+                child: Text(
+                  actionText1,
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color: TColors.levelHighdColor,
+                  ),
+                ),
+              ),
           ],
         );
       },

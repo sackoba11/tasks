@@ -7,40 +7,46 @@ import '../../common/widgets/custom_skeleton.dart';
 import '../../common/widgets/search_text_field.dart';
 import '../../common/widgets/tag_widget.dart';
 import '../../common/widgets/title_app_bar.dart';
-import '../../cubit/task_cubit/task_cubit.dart';
-import '../../cubit/task_cubit/task_cubit_state.dart';
+import '../../cubit/task_overdue_cubit/task_overdue_cubit.dart';
+import '../../cubit/task_overdue_cubit/task_overdue_cubit_state.dart';
 import '../../utils/constants/routes.dart';
 import '../../utils/formatters/formatter.dart';
 
-class AllTasksScreen extends StatelessWidget {
-  const AllTasksScreen({super.key});
+class TasksOverdueScreen extends StatelessWidget {
+  const TasksOverdueScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     TextEditingController searchController = TextEditingController();
-    context.read<TaskCubit>().getAllTasks();
+    context.read<TaskOverdueCubit>().getOverdueTasks();
     return Scaffold(
-      appBar: AppBar(title: TitleAppBar(title: 'Toutes les Tâches')),
+      appBar: AppBar(title: TitleAppBar(title: 'Tâches en Retard')),
       body: BodyScreen(
         children: [
           SearchTextField(
             searchController: searchController,
             onChanged: (value) {
-              context.read<TaskCubit>().searchTasks(search: value, tag: '');
+              context.read<TaskOverdueCubit>().searchTasks(
+                search: value,
+                tag: '',
+              );
             },
             onSelected: (value) {
-              context.read<TaskCubit>().searchTasks(search: value, tag: value);
+              context.read<TaskOverdueCubit>().searchTasks(
+                search: value,
+                tag: value,
+              );
             },
           ),
-          BlocBuilder<TaskCubit, TaskCubitState>(
+          BlocBuilder<TaskOverdueCubit, TaskOverdueCubitState>(
             builder: (context, state) {
-              if (state is TaskLoadedState) {
+              if (state is TaskOverdueLoadedState) {
                 if (state.tag != null && state.tag!.isNotEmpty) {
                   var tag = Formatter.formatStatus(state.tag!);
                   return TagWidget(
                     tag: tag,
                     onDeleted: () {
-                      context.read<TaskCubit>().searchTasks(
+                      context.read<TaskOverdueCubit>().searchTasks(
                         search: '',
                         tag: '',
                       );
@@ -52,35 +58,29 @@ class AllTasksScreen extends StatelessWidget {
             },
           ),
 
-          BlocBuilder<TaskCubit, TaskCubitState>(
+          BlocBuilder<TaskOverdueCubit, TaskOverdueCubitState>(
             builder: (context, state) {
-              if (state is LoadingTaskState) {
+              if (state is LoadingOverdueTaskState) {
                 return Expanded(
                   child: CustomSkeleton(
                     child: CustomListViewBuilder(
-                      pathToPop: Routes.allTasks,
+                      pathToPop: Routes.taskOverdue,
                       tasksList: state.taskPlaceholder,
-                      onLongPressed: () {
-                        print('Supression');
-                      },
                     ),
                   ),
                 );
-              } else if (state is TaskErrorState) {
+              } else if (state is TaskOverdueErrorState) {
                 return Center(
                   child: Text(
                     state.errorMessage!,
                     style: Theme.of(context).textTheme.labelLarge,
                   ),
                 );
-              } else if (state is TaskLoadedState) {
+              } else if (state is TaskOverdueLoadedState) {
                 return Expanded(
                   child: CustomListViewBuilder(
-                    tasksList: state.task,
-                    pathToPop: Routes.allTasks,
-                    onLongPressed: () {
-                      print('Supression');
-                    },
+                    tasksList: state.taskOverdueList,
+                    pathToPop: Routes.taskOverdue,
                   ),
                 );
               }

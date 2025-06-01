@@ -7,40 +7,46 @@ import '../../common/widgets/custom_skeleton.dart';
 import '../../common/widgets/search_text_field.dart';
 import '../../common/widgets/tag_widget.dart';
 import '../../common/widgets/title_app_bar.dart';
-import '../../cubit/task_cubit/task_cubit.dart';
-import '../../cubit/task_cubit/task_cubit_state.dart';
+import '../../cubit/task_canceled_cubit/task_canceled_cubit.dart';
+import '../../cubit/task_canceled_cubit/task_canceled_cubit_state.dart';
 import '../../utils/constants/routes.dart';
 import '../../utils/formatters/formatter.dart';
 
-class AllTasksScreen extends StatelessWidget {
-  const AllTasksScreen({super.key});
+class TasksCanceledScreen extends StatelessWidget {
+  const TasksCanceledScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     TextEditingController searchController = TextEditingController();
-    context.read<TaskCubit>().getAllTasks();
+    context.read<TaskCanceledCubit>().getCanceledTasks();
     return Scaffold(
-      appBar: AppBar(title: TitleAppBar(title: 'Toutes les Tâches')),
+      appBar: AppBar(title: TitleAppBar(title: 'Tâches Annulées')),
       body: BodyScreen(
         children: [
           SearchTextField(
             searchController: searchController,
             onChanged: (value) {
-              context.read<TaskCubit>().searchTasks(search: value, tag: '');
+              context.read<TaskCanceledCubit>().searchTasks(
+                search: value,
+                tag: '',
+              );
             },
             onSelected: (value) {
-              context.read<TaskCubit>().searchTasks(search: value, tag: value);
+              context.read<TaskCanceledCubit>().searchTasks(
+                search: value,
+                tag: value,
+              );
             },
           ),
-          BlocBuilder<TaskCubit, TaskCubitState>(
+          BlocBuilder<TaskCanceledCubit, TaskCanceledCubitState>(
             builder: (context, state) {
-              if (state is TaskLoadedState) {
+              if (state is TaskCanceledLoadedState) {
                 if (state.tag != null && state.tag!.isNotEmpty) {
                   var tag = Formatter.formatStatus(state.tag!);
                   return TagWidget(
                     tag: tag,
                     onDeleted: () {
-                      context.read<TaskCubit>().searchTasks(
+                      context.read<TaskCanceledCubit>().searchTasks(
                         search: '',
                         tag: '',
                       );
@@ -52,35 +58,29 @@ class AllTasksScreen extends StatelessWidget {
             },
           ),
 
-          BlocBuilder<TaskCubit, TaskCubitState>(
+          BlocBuilder<TaskCanceledCubit, TaskCanceledCubitState>(
             builder: (context, state) {
-              if (state is LoadingTaskState) {
+              if (state is LoadingCanceledTaskState) {
                 return Expanded(
                   child: CustomSkeleton(
                     child: CustomListViewBuilder(
-                      pathToPop: Routes.allTasks,
+                      pathToPop: Routes.taskCanceled,
                       tasksList: state.taskPlaceholder,
-                      onLongPressed: () {
-                        print('Supression');
-                      },
                     ),
                   ),
                 );
-              } else if (state is TaskErrorState) {
+              } else if (state is TaskCanceledErrorState) {
                 return Center(
                   child: Text(
                     state.errorMessage!,
                     style: Theme.of(context).textTheme.labelLarge,
                   ),
                 );
-              } else if (state is TaskLoadedState) {
+              } else if (state is TaskCanceledLoadedState) {
                 return Expanded(
                   child: CustomListViewBuilder(
-                    tasksList: state.task,
-                    pathToPop: Routes.allTasks,
-                    onLongPressed: () {
-                      print('Supression');
-                    },
+                    tasksList: state.taskCanceledList,
+                    pathToPop: Routes.taskCanceled,
                   ),
                 );
               }
