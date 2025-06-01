@@ -119,6 +119,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     title: 'Erreur Date',
                     message:
                         'La date de début ne peut être supérieure à la date de fin',
+                    actionText1: 'OK',
+                    onPressed1: () => context.pop(),
                   );
                 } else {
                   var task = Task(

@@ -60,6 +60,9 @@ class AllTasksScreen extends StatelessWidget {
                     child: CustomListViewBuilder(
                       pathToPop: Routes.allTasks,
                       tasksList: state.taskPlaceholder,
+                      onLongPressed: () {
+                        print('Supression');
+                      },
                     ),
                   ),
                 );
@@ -75,6 +78,9 @@ class AllTasksScreen extends StatelessWidget {
                   child: CustomListViewBuilder(
                     tasksList: state.task,
                     pathToPop: Routes.allTasks,
+                    onLongPressed: () {
+                      print('Supression');
+                    },
                   ),
                 );
               }

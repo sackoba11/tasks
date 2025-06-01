@@ -44,6 +44,22 @@ class TaskCubit extends Cubit<TaskCubitState> {
     }
   }
 
+  Future<bool> deleteTasks({required String idTask}) async {
+    bool result = false;
+    try {
+      emit(LoadingTaskState(taskPlaceholder: placeholderTask()));
+      result = await Future.delayed(Duration(seconds: 2), () {
+        taskList.removeWhere((task) => task.id == idTask);
+        return true;
+      });
+      emit(TaskLoadedState(task: taskList, ''));
+      return result;
+    } catch (e) {
+      print(e);
+      return result;
+    }
+  }
+
   Future<List<Task>?> searchTasks({required String search, String? tag}) async {
     List<Task> result;
     try {

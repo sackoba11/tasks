@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tasks/cubit/task_cubit/task_cubit.dart';
 
 import '../../models/task.dart';
 import 'custom_card_task.dart';
@@ -9,11 +12,13 @@ class CustomListViewBuilder extends StatelessWidget {
     required this.tasksList,
     required this.pathToPop,
     this.itemCount,
+    this.onLongPressed,
   });
 
   final List<Task> tasksList;
   final String pathToPop;
   final int? itemCount;
+  final void Function()? onLongPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +32,12 @@ class CustomListViewBuilder extends StatelessWidget {
           itemBuilder: (context, index) {
             return CustomCardTask(
               pathToPop: pathToPop,
+              onLongPressed: () {
+                context.read<TaskCubit>().deleteTasks(
+                  idTask: tasksList[tasksList.length - index - 1].id,
+                );
+                context.pop();
+              },
               task: tasksList[tasksList.length - index - 1],
             );
           },

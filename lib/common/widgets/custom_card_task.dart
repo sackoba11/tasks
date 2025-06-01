@@ -7,15 +7,18 @@ import '../../utils/constants/routes.dart';
 import '../../utils/constants/sizes.dart';
 import '../../utils/formatters/formatter.dart';
 import '../../utils/helpers/helpers.dart';
+import '../../utils/popups/popups.dart';
 
 class CustomCardTask extends StatelessWidget {
   const CustomCardTask({
     super.key,
     required this.task,
     required this.pathToPop,
+    this.onLongPressed,
   });
   final Task task;
   final String pathToPop;
+  final void Function()? onLongPressed;
   @override
   Widget build(BuildContext context) {
     String formattedPercentage = Helpers.calculateSubtasksPercentage(
@@ -28,6 +31,20 @@ class CustomCardTask extends StatelessWidget {
           Routes.taskDetails,
           extra: task,
           queryParameters: {'path': pathToPop},
+        );
+      },
+      onLongPress: () {
+        CustomPopups.showAlert(
+          context: context,
+          title: 'Suppression',
+          message: 'Êtes vous sûr de vouloir supprimer cette tâche?',
+          actionText1: 'Supprimer',
+          actionText2: 'Annuler',
+          onPressed1: onLongPressed,
+
+          onPressed2: () {
+            context.pop();
+          },
         );
       },
       child: Card(
