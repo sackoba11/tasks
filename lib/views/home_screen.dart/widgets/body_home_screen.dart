@@ -36,6 +36,7 @@ class BodyHomeScreen extends StatelessWidget {
               return Expanded(
                 child: CustomSkeleton(
                   child: CustomListViewBuilder(
+                    pathToPop: Routes.home,
                     tasksList: state.taskPlaceholder,
                   ),
                 ),
@@ -49,7 +50,11 @@ class BodyHomeScreen extends StatelessWidget {
               );
             } else if (state is TaskLoadedState) {
               return Expanded(
-                child: CustomListViewBuilder(tasksList: state.task),
+                child: CustomListViewBuilder(
+                  itemCount: 10,
+                  tasksList: state.task,
+                  pathToPop: Routes.home,
+                ),
               );
             }
             return SizedBox();

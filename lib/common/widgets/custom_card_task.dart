@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../helpers/helpers.dart';
 import '../../models/task.dart';
 import '../../utils/constants/colors.dart';
 import '../../utils/constants/routes.dart';
 import '../../utils/constants/sizes.dart';
-
+import '../../utils/formatters/formatter.dart';
+import '../../utils/helpers/helpers.dart';
 
 class CustomCardTask extends StatelessWidget {
   const CustomCardTask({
@@ -18,14 +18,9 @@ class CustomCardTask extends StatelessWidget {
   final String pathToPop;
   @override
   Widget build(BuildContext context) {
-    double calculateSubtasksPercentage(List<dynamic> subtasks) {
-      if (subtasks.isEmpty) return 0;
-      final doneCount = subtasks.where((s) => s.isDone == true).length;
-      return (doneCount / subtasks.length) * 100;
-    }
-
-    double percentage = calculateSubtasksPercentage(task.subtasks);
-    String formattedPercentage = percentage.toStringAsFixed(1);
+    String formattedPercentage = Helpers.calculateSubtasksPercentage(
+      task.subtasks,
+    );
 
     return InkWell(
       onTap: () {
@@ -54,13 +49,13 @@ class CustomCardTask extends StatelessWidget {
                       color: task.color,
                     ),
                     child: Text(
-                      Helpers.formatStatus(task.tag),
+                      Formatter.formatStatus(task.tag),
 
                       style: Theme.of(context).textTheme.labelSmall,
                     ),
                   ),
                   Text(
-                    Helpers.formatStatus(task.status.name),
+                    Formatter.formatStatus(task.status.name),
                     style: Theme.of(context).textTheme.labelSmall,
                   ),
                 ],
@@ -98,7 +93,7 @@ class CustomCardTask extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                         Text(
-                          '${task.dueDate.day}-${task.dueDate.month}-${task.dueDate.year}',
+                          Formatter.formatCardDate(task.dueDate),
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ],
@@ -117,6 +112,4 @@ class CustomCardTask extends StatelessWidget {
       ),
     );
   }
-
- 
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 import '../../common/widgets/custom_icon_button.dart';
+import '../../cubit/task_cubit/task_cubit.dart';
 import '../../utils/constants/sizes.dart';
 import 'widgets/body_home_screen.dart';
 import 'widgets/header_home_screen.dart';
@@ -17,6 +19,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    context.read<TaskCubit>().getAllTasks();
     return Scaffold(
       appBar: AppBar(
         title: Padding(

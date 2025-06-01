@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
-// ignore: must_be_immutable
+import '../../../utils/formatters/formatter.dart';
+
 class DateIconButton extends StatelessWidget {
-  DateIconButton({
+  const DateIconButton({
     super.key,
     required this.controller,
-    this.dateTimeController,
+    required this.dateTimeController,
   });
 
   final TextEditingController controller;
-  DateTime? dateTimeController;
+  final TextEditingController dateTimeController;
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +19,20 @@ class DateIconButton extends StatelessWidget {
       icon: Icon(Iconsax.calendar_2_copy),
       onPressed: () async {
         final DateTime? pickedDate = await showDatePicker(
+          helpText: 'Selectionner la date',
+          confirmText: 'Valider',
+          cancelText: 'Annuler',
+          //TODO: add locale
+          /// locale: Locale('fr', 'CH'),
           context: context,
           firstDate: DateTime(2017, 9, 7, 17, 30),
           lastDate: DateTime(2030),
           initialDate: DateTime.now(),
         );
         if (pickedDate != null) {
-          controller.text =
-              '${pickedDate.day}/${pickedDate.month}/${pickedDate.year}';
-          dateTimeController = pickedDate;
+          controller.text = Formatter.formatDateOnAddTask(pickedDate);
+          dateTimeController.text =
+              pickedDate.millisecondsSinceEpoch.toString();
         }
       },
     );

@@ -1,6 +1,6 @@
-import '../utils/constants/text_strings.dart';
+import '../constants/text_strings.dart';
 
-class Helpers {
+class Formatter {
   static String formatStatus(String status) {
     return status
         .replaceAllMapped(RegExp(r'([A-Z])'), (match) => ' ${match.group(0)}')
@@ -15,6 +15,18 @@ class Helpers {
     return '${TTexts.days[date.weekday - 1]}, ${date.day.toString().padLeft(2, '0')} '
         '${TTexts.month[date.month - 1]} '
         '${date.year}';
+  }
+
+  static String formatDateOnAddTask(DateTime date) {
+    return '${date.day.toString().padLeft(2, '0')}/'
+        '${date.month.toString().padLeft(2, '0')}/'
+        '${date.year}';
+  }
+
+  static String formatCardDate(DateTime date) {
+    return ' ${date.day.toString().padLeft(2, '0')} '
+        '${TTexts.month[date.month - 1]} ';
+    // '${date.year}';
   }
 
   static String formatHour(DateTime date) {

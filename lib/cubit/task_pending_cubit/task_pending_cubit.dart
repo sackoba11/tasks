@@ -3,57 +3,48 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/fake_data/fake_data.dart';
 import '../../models/task.dart';
 import '../../utils/constants/colors.dart';
-import 'task_cubit_state.dart';
+import '../../utils/constants/enums.dart';
+import 'task_pending_cubit_state.dart';
 
-class TaskCubit extends Cubit<TaskCubitState> {
-  TaskCubit() : super(TaskCubitInitial());
+class TaskPendingCubit extends Cubit<TaskPendingCubitState> {
+  TaskPendingCubit() : super(TaskPendingCubitInitial());
 
   // TaskService taskService = TaskService();
   final List<Task> taskList = FakeData.tasks;
+  List<Task> allTaskPendingList = [];
 
-  Future<List<Task>> getAllTasks() async {
+  Future<List<Task>> getPendingTasks() async {
     try {
-      emit(LoadingTaskState(taskPlaceholder: placeholderTask()));
+      emit(LoadingPendingTaskState(taskPlaceholder: placeholderTask()));
 
-      final tasks = await Future.delayed(Duration(milliseconds: 400), () {
-        return taskList;
-      });
+      allTaskPendingList = await Future.delayed(
+        Duration(milliseconds: 400),
+        () {
+          var tasks =
+              taskList
+                  .where((task) => task.status == TaskStatus.enAttente)
+                  .toList();
+          return tasks;
+        },
+      );
       //  await taskService.getAllTasks();
-      emit(TaskLoadedState(task: tasks, ''));
-      return tasks;
+      emit(TaskPendingLoadedState(taskPendingList: allTaskPendingList, ''));
+      return allTaskPendingList;
     } catch (e) {
       print(e);
-      emit(TaskErrorState(errorMessage: e.toString()));
+      emit(TaskPendingErrorState(errorMessage: e.toString()));
       throw Exception(e.toString());
-    }
-  }
-
-  Future<bool> addTasks({required Task task}) async {
-    bool result = false;
-    try {
-      emit(LoadingTaskState(taskPlaceholder: placeholderTask()));
-      result = await Future.delayed(Duration(seconds: 2), () {
-        taskList.add(task);
-        return true;
-      });
-      emit(TaskLoadedState(task: taskList, ''));
-      return result;
-    } catch (e) {
-      print(e);
-      return result;
     }
   }
 
   Future<List<Task>?> searchTasks({required String search, String? tag}) async {
     List<Task> result;
     try {
-      emit(LoadingTaskState(taskPlaceholder: placeholderTask()));
-
-      final tasks = taskList;
+      emit(LoadingPendingTaskState(taskPlaceholder: placeholderTask()));
 
       result = await Future.delayed(Duration(milliseconds: 200), () {
         var searchTask =
-            tasks
+            allTaskPendingList
                 .where(
                   (task) =>
                       task.tag.toLowerCase().contains(search.toLowerCase()) ||
@@ -62,7 +53,7 @@ class TaskCubit extends Cubit<TaskCubitState> {
                 .toList();
         return searchTask;
       });
-      emit(TaskLoadedState(task: result, tag));
+      emit(TaskPendingLoadedState(taskPendingList: result, tag));
       return result;
     } catch (e) {
       print(e);
