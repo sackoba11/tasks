@@ -23,7 +23,7 @@ class CustomRowItem extends StatelessWidget {
           child: Text(
             title,
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
-              color: Colors.black.withOpacity(0.5),
+              color: TColors.black.withOpacity(0.5),
             ),
           ),
         ),

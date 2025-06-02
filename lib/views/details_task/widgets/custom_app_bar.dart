@@ -9,6 +9,8 @@ import '../../../utils/constants/sizes.dart';
 AppBar customAppBar({
   required BuildContext context,
   required String pathToPop,
+  void Function()? onEdit,
+  void Function()? onDelete,
 }) {
   return AppBar(
     leading: CustomIconButton(
@@ -18,14 +20,14 @@ AppBar customAppBar({
     ),
     actions: [
       CustomIconButton(
-        icon: Icons.share_outlined,
+        icon: Icons.delete_outline_outlined,
         color: TColors.black,
-        onPressed: () {},
+        onPressed: onDelete,
       ),
       CustomIconButton(
         icon: Iconsax.edit_2_copy,
         color: TColors.black,
-        onPressed: () {},
+        onPressed: onEdit,
       ),
     ],
     actionsPadding: EdgeInsets.only(right: TSizes.spaceAppBar),
