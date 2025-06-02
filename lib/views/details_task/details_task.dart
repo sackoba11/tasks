@@ -2,19 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../common/widgets/custom_text_form_field.dart';
+import '../../common/widgets/custom_skeleton.dart';
 import '../../cubit/task_cubit/task_cubit.dart';
 import '../../cubit/task_cubit/task_cubit_state.dart';
 import '../../models/task.dart';
 import '../../utils/constants/colors.dart';
-import '../../utils/constants/sizes.dart';
-import '../../utils/formatters/formatter.dart';
 import '../../utils/popups/popups.dart';
+import 'widgets/body_screen.dart';
 import 'widgets/custom_app_bar.dart';
-import 'widgets/custom_row_item.dart';
-import 'widgets/custom_universal_stepper.dart';
-import 'widgets/description_screen.dart';
-import 'widgets/header_screen.dart';
 
 class DetailsTask extends StatelessWidget {
   const DetailsTask({super.key, required this.task, required this.pathToPop});
@@ -23,7 +18,7 @@ class DetailsTask extends StatelessWidget {
   final String? pathToPop;
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.sizeOf(context);
+    context.read<TaskCubit>().getAllTasks();
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) => context.go(pathToPop!),
@@ -49,85 +44,27 @@ class DetailsTask extends StatelessWidget {
             );
           },
           onEdit: () {
-            print('edit');
+           context.read<TaskCubit>().onEditingTasks();
           },
         ),
         body: BlocBuilder<TaskCubit, TaskCubitState>(
           builder: (context, state) {
-            return Column(
-              children: [
-                HeaderScreen(
-                  height: size.height,
-                  children: [
-                    SizedBox(height: size.height * 0.02),
-                    Center(
-                      child: Text(
-                        task.title,
-                        style: Theme.of(context).textTheme.headlineMedium!
-                            .copyWith(color: TColors.black),
-                      ),
-                    ),
-                    CustomRowItem(
-                      title: 'Date Debut: ',
-                      value: Formatter.formatDate(task.createdAt),
-                    ),
-                    CustomRowItem(
-                      title: 'Date Fin : ',
-                      value: Formatter.formatDate(task.dueDate),
-                    ),
-                    CustomRowItem(
-                      title: 'Temps',
-                      value:
-                          '${Formatter.formatHour(task.createdAt)} - ${Formatter.formatHour(task.dueDate.copyWith(hour: 20))} ${task.dueDate.timeZoneName}',
-                    ),
-                    CustomRowItem(
-                      title: 'Étiquette :',
-                      color: task.color,
-                      value: Formatter.formatStatus(task.tag),
-                    ),
-                    SizedBox(height: size.height * 0.02),
-                  ],
+            if (state is LoadingTaskState) {
+              return CustomSkeleton(child: BodyScreen(task: task));
+            } else if (state is TaskLoadedState) {
+              return BodyScreen(task: task);
+            } else if (state is OnEditingTaskState) {
+              return BodyScreen(task: task, onEdit: true);
+            } else if (state is TaskErrorState) {
+              return Center(
+                child: Text(
+                  state.errorMessage!,
+                  style: Theme.of(context).textTheme.labelLarge,
                 ),
-                DescriptionScreen(
-                  height: size.height,
-                  children: [
-                    SizedBox(height: TSizes.spaceBtwSections),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Description',
-                          style: Theme.of(context).textTheme.bodySmall!,
-                        ),
-                        Text(
-                          'Status : ${Formatter.formatStatus(task.status.name)}',
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                      ],
-                    ),
-                    CustomTextFormField(
-                      labelText: task.description,
-                      hintText: '',
-                      enable: false,
-                      maxLines: 5,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                      keyboardType: TextInputType.multiline,
-                    ),
-                    SizedBox(height: TSizes.spaceBtwItems),
-                    Center(
-                      child: Text(
-                        ' (${task.subtasks.length} sous-tâches)',
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ),
-                    CustomUniversalStepper(
-                      subtasks: task.subtasks,
-                      width: size.width,
-                    ),
-                  ],
-                ),
-              ],
-            );
+              );
+            }
+
+            return SizedBox();
           },
         ),
       ),

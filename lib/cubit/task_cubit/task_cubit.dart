@@ -60,6 +60,16 @@ class TaskCubit extends Cubit<TaskCubitState> {
     }
   }
 
+  Future<bool> onEditingTasks() async {
+    emit(OnEditingTaskState());
+    try {
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
   Future<List<Task>?> searchTasks({required String search, String? tag}) async {
     List<Task> result;
     try {
