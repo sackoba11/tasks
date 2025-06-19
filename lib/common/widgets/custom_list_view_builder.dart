@@ -28,17 +28,17 @@ class CustomListViewBuilder extends StatelessWidget {
 
           physics: const BouncingScrollPhysics(),
 
-          itemCount: itemCount ?? tasksList.length,
+          itemCount: tasksList.length,
           itemBuilder: (context, index) {
             return CustomCardTask(
               pathToPop: pathToPop,
               onLongPressed: () {
                 context.read<TaskCubit>().deleteTasks(
-                  idTask: tasksList[tasksList.length - index - 1].id,
+                  idTask: tasksList[index].id,
                 );
                 context.pop();
               },
-              task: tasksList[tasksList.length - index - 1],
+              task: tasksList[index],
             );
           },
         )

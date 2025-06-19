@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../cubit/task_cubit/task_cubit.dart';
+import '../../cubit/task_cubit/task_cubit_state.dart';
 import '../constants/colors.dart';
 
 class CustomPopups {
@@ -55,14 +58,33 @@ class CustomPopups {
                 ),
               ),
             if (actionText1 != null)
-              TextButton(
-                onPressed: onPressed1,
-                child: Text(
-                  actionText1,
-                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    color: TColors.levelHighdColor,
-                  ),
-                ),
+              BlocBuilder<TaskCubit, TaskCubitState>(
+                builder: (context, state) {
+                  if (state is LoadingTaskState) {
+                    return TextButton(
+                      onPressed: () {},
+                      child: SizedBox(
+                        width: 30,
+                        height: 30,
+                        child: CircularProgressIndicator(
+                          color: TColors.levelHighdColor,
+                        ),
+                      ),
+                    );
+                  }
+                  if (state is TaskLoadedState) {
+                    return TextButton(
+                      onPressed: onPressed1,
+                      child: Text(
+                        actionText1,
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          color: TColors.levelHighdColor,
+                        ),
+                      ),
+                    );
+                  }
+                  return SizedBox();
+                },
               ),
           ],
         );

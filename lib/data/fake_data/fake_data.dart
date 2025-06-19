@@ -84,7 +84,7 @@ class FakeData {
       subtasks: [],
     ),
     Task(
-      id: '7',
+      id: '5',
       title: 'Aller au Champ',
       dueDate: DateTime.now().copyWith(day: 20, month: 5, year: 2025),
       createdAt: DateTime.now(),
@@ -96,7 +96,7 @@ class FakeData {
       subtasks: [],
     ),
     Task(
-      id: '1',
+      id: '6',
       title: 'Aller au cinema',
       dueDate: DateTime.now().copyWith(day: 20, month: 5, year: 2025),
       createdAt: DateTime.now(),
@@ -137,7 +137,7 @@ class FakeData {
       ],
     ),
     Task(
-      id: '2',
+      id: '7',
       title: 'Aller au Marche',
       dueDate: DateTime.now().copyWith(day: 24, month: 5, year: 2025),
       createdAt: DateTime.now(),
@@ -149,7 +149,7 @@ class FakeData {
       subtasks: [],
     ),
     Task(
-      id: '3',
+      id: '8',
       title: 'Aller a la Maison',
       dueDate: DateTime.now().copyWith(day: 27, month: 5, year: 2025),
       createdAt: DateTime.now(),
@@ -161,7 +161,7 @@ class FakeData {
       subtasks: [],
     ),
     Task(
-      id: '4',
+      id: '9',
       title: 'Aller au Village',
       dueDate: DateTime.now().copyWith(day: 30, month: 5, year: 2025),
       createdAt: DateTime.now(),
@@ -173,7 +173,7 @@ class FakeData {
       subtasks: [],
     ),
     Task(
-      id: '7',
+      id: '10',
       title: 'Aller au Champ',
       dueDate: DateTime.now().copyWith(day: 20, month: 5, year: 2025),
       createdAt: DateTime.now(),

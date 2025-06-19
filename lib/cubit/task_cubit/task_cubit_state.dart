@@ -26,6 +26,11 @@ class TaskLoadedState extends TaskCubitState {
   List<Object?> get props => [task, tag];
 }
 
+class OnEditingTaskState extends TaskCubitState {
+  @override
+  List<Object?> get props => [];
+}
+
 class TaskErrorState extends TaskCubitState {
   final String? errorMessage;
   TaskErrorState({this.errorMessage});
