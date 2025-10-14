@@ -28,8 +28,8 @@ class HeaderHomeScreen extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                flex: 3,
+              Flexible(
+                flex: 4,
                 child: CustomCard1(
                   imagePath: TImages.darkAppLogo,
                   title: 'En attente',
@@ -40,7 +40,7 @@ class HeaderHomeScreen extends StatelessWidget {
                 ),
               ),
               Expanded(
-                flex: 5,
+                flex: 6,
                 child: Column(
                   children: [
                     CustomCard2(

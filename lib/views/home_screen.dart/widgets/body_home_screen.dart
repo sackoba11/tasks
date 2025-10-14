@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../common/widgets/custom_list_view_builder.dart';
 import '../../../common/widgets/custom_skeleton.dart';
-import '../../../cubit/task_cubit/task_cubit.dart';
-import '../../../cubit/task_cubit/task_cubit_state.dart';
+import '../../../controllers/task_controller.dart';
 import '../../../utils/constants/routes.dart';
 
 class BodyHomeScreen extends StatelessWidget {
@@ -13,6 +12,7 @@ class BodyHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final taskController = Get.find<TaskController>();
     return Column(
       children: [
         Row(
@@ -30,36 +30,34 @@ class BodyHomeScreen extends StatelessWidget {
             ),
           ],
         ),
-        BlocBuilder<TaskCubit, TaskCubitState>(
-          builder: (context, state) {
-            if (state is LoadingTaskState) {
-              return Expanded(
-                child: CustomSkeleton(
-                  child: CustomListViewBuilder(
-                    pathToPop: Routes.home,
-                    tasksList: state.taskPlaceholder,
-                  ),
-                ),
-              );
-            } else if (state is TaskErrorState) {
-              return Center(
-                child: Text(
-                  state.errorMessage!,
-                  style: Theme.of(context).textTheme.labelLarge,
-                ),
-              );
-            } else if (state is TaskLoadedState) {
-              return Expanded(
+        Obx(() {
+          if (taskController.isLoading.value) {
+            return Expanded(
+              child: CustomSkeleton(
                 child: CustomListViewBuilder(
-                  itemCount: 10,
-                  tasksList: state.task,
                   pathToPop: Routes.home,
+                  tasksList: taskController.placeholderTask(),
                 ),
-              );
-            }
-            return SizedBox();
-          },
-        ),
+              ),
+            );
+          } else if (taskController.isError.value) {
+            return Center(
+              child: Text(
+                taskController.errorMessage.value,
+                style: Theme.of(context).textTheme.labelLarge,
+              ),
+            );
+          } else if (taskController.taskListRx.isNotEmpty) {
+            return Expanded(
+              child: CustomListViewBuilder(
+                itemCount: 10,
+                tasksList: taskController.taskListRx,
+                pathToPop: Routes.home,
+              ),
+            );
+          }
+          return SizedBox();
+        }),
       ],
     );
   }

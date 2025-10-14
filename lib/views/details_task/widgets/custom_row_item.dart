@@ -35,8 +35,7 @@ class CustomRowItem extends StatelessWidget {
         Expanded(
           flex: 3,
           child: Container(
-            padding: EdgeInsets.all(4),
-            width: 40,
+            margin: EdgeInsets.symmetric(vertical: 4),
             decoration: BoxDecoration(
               color: color,
               borderRadius: BorderRadius.circular(9),

@@ -12,8 +12,7 @@ class HeaderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
-      child: SizedBox(
-        height: height * 0.34,
+      child: Expanded(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
