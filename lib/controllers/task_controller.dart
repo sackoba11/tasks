@@ -7,26 +7,51 @@ import '../utils/constants/enums.dart';
 
 class TaskController extends GetxController {
   // TaskService taskService = TaskService();
-  final List<Task> taskList = FakeData.tasks;
+  // final List<Task> taskList = FakeData.tasks;
+
+  // Tasks List
   final RxList<Task> taskListRx = <Task>[].obs;
+  List<Task> allTaskInProgressListRx = <Task>[].obs;
+  List<Task> allTaskCanceledListRx = <Task>[];
+  List<Task> allTaskPendingListRx = <Task>[];
+  List<Task> allTaskCompletedListRx = <Task>[];
+
+  // task state
   final RxBool isLoading = false.obs;
+  final RxBool isLoadingCanceledTask = false.obs;
+  final RxBool isLoadingInProgressTask = false.obs;
+  final RxBool isLoadingPendingTask = false.obs;
+  final RxBool isLoadingCompletedTask = false.obs;
+
+  // Error Message
   final RxString errorMessage = ''.obs;
+  final RxString errorMessageCanceledTask = ''.obs;
+  final RxString errorMessageInProgressTask = ''.obs;
+  final RxString errorMessagePendingTask = ''.obs;
+  final RxString errorMessageCompletedTask = ''.obs;
+
+  // Error state
   final RxBool isError = false.obs;
-  List<Task> allTaskInProgressList = <Task>[].obs;
+  final RxBool isErrorCanceledTask = false.obs;
+  final RxBool isErrorInProgressTask = false.obs;
+  final RxBool isErrorPendingTask = false.obs;
+  final RxBool isErrorCompletedTask = false.obs;
+
+  // Tags
   final RxString tag = ''.obs;
 
   Future<List<Task>> getAllTasks() async {
     try {
       isLoading.value = true;
       await Future.delayed(Duration(milliseconds: 400), () {
-        taskListRx.assignAll(taskList);
+        taskListRx.assignAll(FakeData.tasks);
       });
       //  await taskService.getAllTasks();
       return taskListRx;
     } catch (e) {
       isError.value = true;
       errorMessage.value = e.toString();
-      throw Exception(e.toString());
+      return [];
     } finally {
       isLoading.value = false;
     }
@@ -36,7 +61,7 @@ class TaskController extends GetxController {
     bool result = false;
     try {
       result = await Future.delayed(Duration(seconds: 2), () {
-        taskList.add(task);
+        taskListRx.add(task);
         return true;
       });
       return result;
@@ -49,7 +74,7 @@ class TaskController extends GetxController {
     bool result = false;
     try {
       result = await Future.delayed(Duration(seconds: 2), () {
-        taskList.removeWhere((task) => task.id == idTask);
+        taskListRx.removeWhere((task) => task.id == idTask);
         return true;
       });
       return result;
@@ -69,8 +94,8 @@ class TaskController extends GetxController {
   Future<List<Task>?> searchTasks({required String search, String? tag}) async {
     List<Task> result;
     try {
-      final tasks = taskList;
-
+      isLoading.value = true;
+      final tasks = taskListRx;
       result = await Future.delayed(Duration(milliseconds: 200), () {
         var searchTask =
             tasks
@@ -85,6 +110,8 @@ class TaskController extends GetxController {
       return result;
     } catch (e) {
       return [];
+    } finally {
+      isLoading.value = false;
     }
   }
 
@@ -106,24 +133,26 @@ class TaskController extends GetxController {
   // Task In progress state
   Future<List<Task>> getInProgressTasks() async {
     try {
-      isLoading.value = true;
+      isLoadingInProgressTask.value = true;
 
-      allTaskInProgressList = await Future.delayed(
+      allTaskInProgressListRx = await Future.delayed(
         Duration(milliseconds: 400),
         () {
           var tasks =
-              taskList
+              taskListRx
                   .where((task) => task.status == TaskStatus.enCours)
                   .toList();
           return tasks;
         },
       );
       //  await taskService.getAllTasks();
-      return allTaskInProgressList;
+      return allTaskInProgressListRx;
     } catch (e) {
-      isError.value = true;
-      errorMessage.value = e.toString();
-      throw Exception(e.toString());
+      isErrorInProgressTask.value = true;
+      errorMessageInProgressTask.value = e.toString();
+      return [];
+    } finally {
+      isLoadingInProgressTask.value = false;
     }
   }
 
@@ -133,20 +162,10 @@ class TaskController extends GetxController {
   }) async {
     List<Task> result;
     try {
+      isLoadingInProgressTask.value = true;
       result = await Future.delayed(Duration(milliseconds: 200), () {
         var searchTask =
-            allTaskInProgressList
-                .where(
-                  (task) =>
-                      task.tag.toLowerCase().contains(search.toLowerCase()) ||
-                      task.title.toLowerCase().contains(search.toLowerCase()),
-                )
-                .toList();
-        return searchTask;
-      });
-      result = await Future.delayed(Duration(milliseconds: 200), () {
-        var searchTask =
-            allTaskInProgressList
+            allTaskInProgressListRx
                 .where(
                   (task) =>
                       task.tag.toLowerCase().contains(search.toLowerCase()) ||
@@ -157,9 +176,68 @@ class TaskController extends GetxController {
       });
       return result;
     } catch (e) {
-      isError.value = true;
-      errorMessage.value = e.toString();
+      isErrorInProgressTask.value = true;
+      errorMessageInProgressTask.value = e.toString();
       return [];
+    } finally {
+      isLoadingInProgressTask.value = false;
+    }
+  }
+
+  // Task canceled
+  Future<List<Task>> getCanceledTasks() async {
+    try {
+      isLoadingCanceledTask.value = true;
+
+      allTaskCanceledListRx = await Future.delayed(
+        Duration(milliseconds: 400),
+        () {
+          if (taskListRx.isEmpty) {
+            getAllTasks();
+          }
+          var tasks =
+              taskListRx
+                  .where((task) => task.status == TaskStatus.annulee)
+                  .toList();
+
+          return tasks;
+        },
+      );
+      return allTaskCanceledListRx;
+    } catch (e) {
+      isErrorCanceledTask.value = true;
+      errorMessageCanceledTask.value = e.toString();
+      return [];
+    } finally {
+      isLoadingCanceledTask.value = false;
+    }
+  }
+
+  Future<List<Task>?> searchTasksCanceled({
+    required String search,
+    String? tag,
+  }) async {
+    List<Task> result;
+    try {
+      isLoadingCanceledTask.value = true;
+      result = await Future.delayed(Duration(milliseconds: 200), () {
+        var searchTask =
+            taskListRx
+                .where(
+                  (task) =>
+                      task.tag.toLowerCase().contains(search.toLowerCase()) ||
+                      task.title.toLowerCase().contains(search.toLowerCase()),
+                )
+                .toList();
+        return searchTask;
+      });
+      return result;
+    } catch (e) {
+      isErrorCanceledTask.value = true;
+      errorMessageCanceledTask.value = e.toString();
+      return [];
+    } finally {
+      isLoadingCanceledTask.value = false;
     }
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 import '../../common/widgets/body_screen.dart';
@@ -9,7 +8,6 @@ import '../../common/widgets/search_text_field.dart';
 import '../../common/widgets/tag_widget.dart';
 import '../../common/widgets/title_app_bar.dart';
 import '../../controllers/task_controller.dart';
-import '../../cubit/task_in_progress_cubit/task_in_progress_cubit.dart';
 import '../../utils/constants/routes.dart';
 import '../../utils/formatters/formatter.dart';
 
@@ -20,6 +18,7 @@ class TaskInProgressScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController searchController = TextEditingController();
     final TaskController taskController = Get.find<TaskController>();
+    taskController.getInProgressTasks();
     return Scaffold(
       appBar: AppBar(title: TitleAppBar(title: 'Tâches en cours')),
       body: BodyScreen(
@@ -35,25 +34,22 @@ class TaskInProgressScreen extends StatelessWidget {
           ),
 
           Obx(() {
-            if (taskController.isLoading.value == false) {
-              if (taskController.tag.value.isNotEmpty) {
-                var tag = Formatter.formatStatus(taskController.tag.value);
-                return TagWidget(
-                  tag: tag,
-                  onDeleted: () {
-                    context.read<TaskInProgressCubit>().searchTasks(
-                      search: '',
-                      tag: '',
-                    );
-                  },
-                );
-              }
+            if (!taskController.isLoadingInProgressTask.value &&
+                taskController.tag.value.isNotEmpty) {
+              var tag = Formatter.formatStatus(taskController.tag.value);
+              return TagWidget(
+                tag: tag,
+                onDeleted: () {
+                  taskController.searchTasksInProgress(search: "", tag: '');
+                },
+              );
             }
+
             return SizedBox();
           }),
 
           Obx(() {
-            if (taskController.isLoading.value) {
+            if (taskController.isLoadingInProgressTask.value) {
               return Expanded(
                 child: CustomSkeleton(
                   child: CustomListViewBuilder(
@@ -62,17 +58,17 @@ class TaskInProgressScreen extends StatelessWidget {
                   ),
                 ),
               );
-            } else if (taskController.isError.value) {
+            } else if (taskController.isErrorInProgressTask.value) {
               return Center(
                 child: Text(
-                  taskController.errorMessage.value,
+                  taskController.errorMessageInProgressTask.value,
                   style: Theme.of(context).textTheme.labelLarge,
                 ),
               );
-            } else if (!taskController.isLoading.value) {
+            } else if (!taskController.isLoadingInProgressTask.value) {
               return Expanded(
                 child: CustomListViewBuilder(
-                  tasksList: taskController.taskListRx,
+                  tasksList: taskController.allTaskInProgressListRx,
                   pathToPop: Routes.taskInProgress,
                 ),
               );

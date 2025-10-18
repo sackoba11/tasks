@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 
 import '../../common/widgets/body_screen.dart';
 import '../../common/widgets/custom_list_view_builder.dart';
@@ -7,8 +7,7 @@ import '../../common/widgets/custom_skeleton.dart';
 import '../../common/widgets/search_text_field.dart';
 import '../../common/widgets/tag_widget.dart';
 import '../../common/widgets/title_app_bar.dart';
-import '../../cubit/task_canceled_cubit/task_canceled_cubit.dart';
-import '../../cubit/task_canceled_cubit/task_canceled_cubit_state.dart';
+import '../../controllers/task_controller.dart';
 import '../../utils/constants/routes.dart';
 import '../../utils/formatters/formatter.dart';
 
@@ -18,7 +17,9 @@ class TasksCanceledScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController searchController = TextEditingController();
-    context.read<TaskCanceledCubit>().getCanceledTasks();
+    final TaskController taskController = Get.find<TaskController>();
+    taskController.getCanceledTasks();
+
     return Scaffold(
       appBar: AppBar(title: TitleAppBar(title: 'Tâches Annulées')),
       body: BodyScreen(
@@ -26,67 +27,54 @@ class TasksCanceledScreen extends StatelessWidget {
           SearchTextField(
             searchController: searchController,
             onChanged: (value) {
-              context.read<TaskCanceledCubit>().searchTasks(
-                search: value,
-                tag: '',
-              );
+              taskController.searchTasksCanceled(search: value, tag: '');
             },
             onSelected: (value) {
-              context.read<TaskCanceledCubit>().searchTasks(
-                search: value,
-                tag: value,
-              );
+              taskController.searchTasksInProgress(search: value, tag: value);
             },
           ),
-          BlocBuilder<TaskCanceledCubit, TaskCanceledCubitState>(
-            builder: (context, state) {
-              if (state is TaskCanceledLoadedState) {
-                if (state.tag != null && state.tag!.isNotEmpty) {
-                  var tag = Formatter.formatStatus(state.tag!);
-                  return TagWidget(
-                    tag: tag,
-                    onDeleted: () {
-                      context.read<TaskCanceledCubit>().searchTasks(
-                        search: '',
-                        tag: '',
-                      );
-                    },
-                  );
-                }
+          Obx(() {
+            if (taskController.isLoadingCanceledTask.value == false) {
+              if (taskController.tag.value.isNotEmpty) {
+                var tag = Formatter.formatStatus(taskController.tag.value);
+                return TagWidget(
+                  tag: tag,
+                  onDeleted: () {
+                    taskController.searchTasksCanceled(search: "", tag: '');
+                  },
+                );
               }
-              return SizedBox();
-            },
-          ),
+            }
+            return SizedBox();
+          }),
 
-          BlocBuilder<TaskCanceledCubit, TaskCanceledCubitState>(
-            builder: (context, state) {
-              if (state is LoadingCanceledTaskState) {
-                return Expanded(
-                  child: CustomSkeleton(
-                    child: CustomListViewBuilder(
-                      pathToPop: Routes.taskCanceled,
-                      tasksList: state.taskPlaceholder,
-                    ),
-                  ),
-                );
-              } else if (state is TaskCanceledErrorState) {
-                return Center(
-                  child: Text(
-                    state.errorMessage!,
-                    style: Theme.of(context).textTheme.labelLarge,
-                  ),
-                );
-              } else if (state is TaskCanceledLoadedState) {
-                return Expanded(
+          Obx(() {
+            if (taskController.isLoadingCanceledTask.value) {
+              return Expanded(
+                child: CustomSkeleton(
                   child: CustomListViewBuilder(
-                    tasksList: state.taskCanceledList,
                     pathToPop: Routes.taskCanceled,
+                    tasksList: taskController.placeholderTask(),
                   ),
-                );
-              }
-              return SizedBox();
-            },
-          ),
+                ),
+              );
+            } else if (taskController.isErrorCanceledTask.value) {
+              return Center(
+                child: Text(
+                  taskController.errorMessageCanceledTask.value,
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
+              );
+            } else if (!taskController.isLoadingCanceledTask.value) {
+              return Expanded(
+                child: CustomListViewBuilder(
+                  tasksList: taskController.allTaskCanceledListRx,
+                  pathToPop: Routes.taskCanceled,
+                ),
+              );
+            }
+            return SizedBox();
+          }),
         ],
       ),
     );
